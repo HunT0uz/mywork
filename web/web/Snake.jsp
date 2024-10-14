@@ -6,6 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>贪吃蛇游戏</title>
     <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: green;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+    <style>
         body {
             display: flex;
             justify-content: center;
@@ -147,5 +158,6 @@
     scoreDisplay.textContent = 'Score: 0';
     draw();
 </script>
+    <a href="userCenter.jsp" class="button">返回主页</a>
 </body>
 </html>

@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ROG
-  Date: 2024/10/10
-  Time: 下午8:30
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
 <html>
 <head>
@@ -12,9 +6,10 @@
 </head>
 <body>
 <%
-    String jdbcUrl = "jdbc:mysql://localhost:3306/test"; // 数据库 URL
-    String username = "root"; // 数据库用户
-    String password = "1234"; // 数据库密码
+    String serverIP = (String)session.getAttribute("serverIP");
+    String jdbcUrl = "jdbc:mysql://"+serverIP+":3306/test"; // 数据库 URL
+    String rootname = "root"; // 数据库用户
+    String rootpassword = "1234"; // 数据库密码
 
     Connection connection = null;
 
@@ -23,22 +18,39 @@
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         // 建立连接
-        connection = DriverManager.getConnection(jdbcUrl, username, password);
+        connection = DriverManager.getConnection(jdbcUrl, rootname, rootpassword);
 
         // 创建一个 Statement 对象来执行 SQL 查询
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM stest");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM students_test");
 
-        // 处理结果集
-        while (resultSet.next()) {
-            out.println("<p>" + resultSet.getString("your_column_name") + "</p>");
+        // 获取元数据以获取列信息
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        int columnCount = metaData.getColumnCount();
+
+        // 创建表格
+        out.println("<table border='1'>");
+        out.println("<tr>");
+        // 输出表头
+        for (int i = 1; i <= columnCount; i++) {
+            out.println("<th>" + metaData.getColumnName(i) + "</th>");
         }
+        out.println("</tr>");
+
+        // 输出数据行
+        while (resultSet.next()) {
+            out.println("<tr>");
+            for (int i = 1; i <= columnCount; i++) {
+                out.println("<td>" + resultSet.getString(i) + "</td>");
+            }
+            out.println("</tr>");
+        }
+        out.println("</table>");
 
     } catch (SQLException e) {
-        e.printStackTrace(outcatch (SQLException e) {
-    out.println("SQL错误: " + e.getMessage());
-}
-);
+        e.printStackTrace();
+        out.println("SQL错误: " + e.getMessage());
+
     } catch (ClassNotFoundException e) {
         out.println("驱动程序未找到: " + e.getMessage());
     } finally {
@@ -47,7 +59,6 @@
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace(out);
             }
         }
     }

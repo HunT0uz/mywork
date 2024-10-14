@@ -31,9 +31,9 @@
         out.println("</script>");
     } else {
 
-        String serverAddress = "10.195.113.85"; // 数据库服务器地址
-        String jdbcUrl = "jdbc:mysql://" + serverAddress + ":3306/test"; // 数据库 URL
-        String rootusername = "root"; // 数据库用户
+        String serverIP = (String)session.getAttribute("serverIP");
+        String jdbcUrl = "jdbc:mysql://"+serverIP+":3306/test"; // 数据库 URL
+        String rootname = "root"; // 数据库用户
         String rootpassword = "1234"; // 数据库密码
 
         Connection conn = null;
@@ -44,7 +44,7 @@
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // 建立连接
-            conn = DriverManager.getConnection(jdbcUrl, rootusername, rootpassword);
+            conn = DriverManager.getConnection(jdbcUrl, rootname, rootpassword);
 
             // 检查用户名是否已存在
             String checkSql = "SELECT COUNT(*) FROM user WHERE username = ?";
