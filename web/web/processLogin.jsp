@@ -25,7 +25,7 @@
         Class.forName("com.mysql.cj.jdbc.Driver"); // MySQL Connector/J 8.x 版本的驱动类名
         conn = DriverManager.getConnection(jdbcUrl, rootname, rootpassword);
 
-        String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
+        String sql = "SELECT * FROM test.user WHERE username = ? AND password = ?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, username);
         pstmt.setString(2, password1);

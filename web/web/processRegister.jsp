@@ -47,7 +47,7 @@
             conn = DriverManager.getConnection(jdbcUrl, rootname, rootpassword);
 
             // 检查用户名是否已存在
-            String checkSql = "SELECT COUNT(*) FROM user WHERE username = ?";
+            String checkSql = "SELECT COUNT(*) FROM test.user WHERE username = ?";
             stmt = conn.prepareStatement(checkSql);
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
