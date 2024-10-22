@@ -55,7 +55,9 @@
 <!-- 游戏内容 -->
 <div id="tetrisBoard"></div>
 <!-- 返回按钮 -->
-<a href="userCenter.jsp" class="button">返回首页</a>返回个人中心</button>
+<a href="userCenter.jsp" class="button">返回首页</a>
+
+<a href="userCenter.jsp" class="button">返回个人中心</a>
 </body>
 </html>
 <script>
@@ -307,11 +309,11 @@
                     break;
             }
             //计算级别
-            if(source/50>=level){
+            if(source/100>=level && level < 3){
                 level++;
                 document.getElementById("level").innerText=("level: "+level);
                 clearInterval(timer);
-                timer=window.setInterval("if(!over&&!stop)s.vMove();", 400/level);
+                timer=window.setInterval("if(!over&&!stop)s.vMove();", 600/level);
             }
 
         };

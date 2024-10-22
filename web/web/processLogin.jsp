@@ -11,7 +11,7 @@
 
 <%
     String serverIP = (String)session.getAttribute("serverIP");
-    String jdbcUrl = "jdbc:mysql://"+serverIP+":3306/test"; // 数据库 URL
+    String jdbcUrl = "jdbc:mysql://localhost:3306/test"; // 数据库 URL
     String rootname = "root"; // 数据库用户
     String rootpassword = "1234"; // 数据库密码
 

@@ -3,7 +3,7 @@
 <%@ page import="java.sql.*" %>
 <%
   //获取本地direccion IP地址
-  String serverIP = "192.168.20.143";
+  String serverIP = "10.195.121.14";
   session.setAttribute("serverIP", serverIP); // 将服务器IP存入 session
 %>
 <html>
@@ -43,10 +43,12 @@
 <p><a href="<%= "http://" + serverIP + ":8080/web_war_exploded/userCenter.jsp" %>" class="button">个人中心</a></p>
 <% } %>
 
+
+
 <div id="joke">
   <%
 
-    String jdbcUrl = "jdbc:mysql://"+serverIP+":3306/test"; // 数据库 URL
+    String jdbcUrl = "jdbc:mysql://localhost:3306/test"; // 数据库 URL
     String rootname = "root"; // 数据库用户
     String rootpassword = "1234"; // 数据库密码
 
