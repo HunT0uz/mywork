@@ -2,6 +2,7 @@
 <%@ page import="java.sql.*" %>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>登录页面</title>
     <style>
         body {

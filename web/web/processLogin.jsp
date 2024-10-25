@@ -5,13 +5,14 @@
 
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>登录结果</title>
 </head>
 <body>
 
 <%
     String serverIP = (String)session.getAttribute("serverIP");
-    String jdbcUrl = "jdbc:mysql://localhost:3306/test"; // 数据库 URL
+    String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC"; // 数据库 URL
     String rootname = "root"; // 数据库用户
     String rootpassword = "1234"; // 数据库密码
 

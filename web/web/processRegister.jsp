@@ -9,12 +9,13 @@
 <%@ page import="java.sql.*, javax.naming.*, javax.sql.*" %>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>注册结果</title>
 </head>
 <body>
 
 <%
-    String jdbcUrl = "jdbc:mysql://localhost:3306/test";
+    String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
     String username = request.getParameter("username");
     String password = request.getParameter("password");
     String confirmPassword = request.getParameter("confirmPassword");

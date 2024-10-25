@@ -3,11 +3,12 @@
 <%@ page import="java.sql.*" %>
 <%
   //获取本地direccion IP地址
-  String serverIP = "10.195.121.14";
+  String serverIP = "125.216.246.161";
   session.setAttribute("serverIP", serverIP); // 将服务器IP存入 session
 %>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>我爱鼠哥</title>
   <style>
     .button {
@@ -48,7 +49,7 @@
 <div id="joke">
   <%
 
-    String jdbcUrl = "jdbc:mysql://localhost:3306/test"; // 数据库 URL
+    String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC"; // 数据库 URL
     String rootname = "root"; // 数据库用户
     String rootpassword = "1234"; // 数据库密码
 

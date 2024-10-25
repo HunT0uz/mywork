@@ -48,6 +48,7 @@
 %>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>购物网站 - 商品列表</title>
     <style>
         .product {

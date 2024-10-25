@@ -6,7 +6,7 @@
     HashMap<String, Double> products = new HashMap<>();
 
     // 数据库连接
-    String jdbcUrl = "jdbc:mysql://localhost:3306/test"; // 数据库 URL
+    String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC"; // 数据库 URL
     String username = "root"; // 数据库用户
     String password = "1234"; // 数据库密码
 
@@ -57,6 +57,7 @@
 %>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>结算页面</title>
 </head>
 <body>
