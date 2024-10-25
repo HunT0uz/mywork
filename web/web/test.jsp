@@ -23,7 +23,7 @@
 
         // 创建一个 Statement 对象来执行 SQL 查询
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM user");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM products");
 
         // 获取元数据以获取列信息
         ResultSetMetaData metaData = resultSet.getMetaData();
