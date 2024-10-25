@@ -98,7 +98,13 @@
         for (String item : productCountMap.keySet()) {
             int quantity = productCountMap.get(item); // 获取商品数量
     %>
-    <li><%= item %> - 数量: <%= quantity %></li> <!-- 显示商品名称及数量 -->
+    <li>
+        <%= item %> - 数量: <%= quantity %>
+        <form action="removeFromCart" method="post" style="display:inline;">
+            <input type="hidden" name="productNameToRemove" value="<%= item %>">
+            <button type="submit" class="button" style="background-color: red;">删除</button> <!-- 删除按钮 -->
+        </form>
+    </li> <!-- 显示商品名称及数量 -->
     <%
         }
     %>

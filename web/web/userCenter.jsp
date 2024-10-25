@@ -37,9 +37,10 @@
     -->
     <p><a href="${pageContext.request.contextPath}/Snake.jsp" class="button">贪吃蛇</a></p>
     <p><a href="${pageContext.request.contextPath}/tetris.jsp" class="button">俄罗斯方块</a></p>
-    <p><a href="${pageContext.request.contextPath}/index.jsp" class="button">返回首页</a></p>
+
     <!-- 新增商品和购物车按钮 -->
     <p><a href="products.jsp" class="button">查看商品</a></p>
     <p><a href="cart.jsp" class="button">查看购物车</a></p>
+    <p><a href="${pageContext.request.contextPath}/index.jsp" class="button">返回首页</a></p>
 </body>
 </html>

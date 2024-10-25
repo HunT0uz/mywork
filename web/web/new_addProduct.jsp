@@ -23,38 +23,18 @@
     <label for="productPrice">商品价格:</label>
     <input type="number" id="productPrice" name="productPrice" step="0.01" required><br>
     <label for="productImage">商品图片:</label>
-    <input type="file" id="productImage" name="productImage" accept="image/*" onchange="showFileName(this)" required><br>
-    <img id="showimg" src="" alt="上传的图片"><br>
+    <input type="file" id="productImage" name="productImage" accept="image/*" required onchange="showFileName(this)" ><br>
     <button type="submit">添加商品</button>
 </form>
-
-<!-- 上传图片表单 -->
 <script>
     function showFileName(input) {
         if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var img = document.getElementById('showimg');
-                img.src = e.target.result;
-                img.style.width = '100px'; // 设置图片预览大小
-                img.style.height = '100px';
-            };
-            reader.readAsDataURL(input.files[0]); // 读取文件并生成预览
-
-            document.getElementById('showimg').src = "";
+            alert("所选图片文件名: " + input.files[0].name); // 弹出所选文件名
+        } else {
+            alert("未选择文件");
         }
     }
 </script>
-
-<%--<form action="upload" method="post" enctype="multipart/form-data">--%>
-<%--    <label for="productImg">商品图片:</label>--%>
-<%--    <input type="file" id="productImg" name="productImg" onchange="showFileName(this)" required><br>--%>
-<%--    <img id="showimg" src="" alt="上传的图片"><br>--%>
-<%--    <button type="submit">上传图片</button>--%>
-
-<%--</form>--%>
-
-
 <!-- 删除商品表单 -->
 <form action="deleteProduct" method="post">
     <label for="productNameToDelete">删除商品名称:</label>
