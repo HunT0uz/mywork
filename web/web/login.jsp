@@ -52,7 +52,7 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
-        .register-button {
+        .register-button, .merchant-login-button {
             background-color: #4CAF50;
             color: white;
             padding: 10px;
@@ -60,16 +60,16 @@
             border-radius: 4px;
             cursor: pointer;
             width: 100%; /* 设置宽度为100% */
-            margin-top: 1000px; /* 与登录按钮之间留出间隔 */
+            margin-top: 10px; /* 与登录按钮之间留出间隔 */
         }
-        .register-button:hover {
+        .register-button:hover, .merchant-login-button:hover {
             background-color: #45a049;
         }
     </style>
 </head>
 <body>
-<form action="processLogin.jsp" method="post">
-    <h2>登录</h2>
+<form action="processLogin" method="post">
+    <h2>用户登录</h2>
     <label for="username">用户名:</label>
     <input type="text" id="username" name="username" required>
 
@@ -81,14 +81,18 @@
 
 <!-- 注册按钮 -->
 <form action="register.jsp" method="get" style="margin-top: 280px;">
-    <input type="submit" value="注册" class="register-button">
+    <input type="submit" value="用户注册" class="register-button">
+</form>
+
+<!-- 商家登录按钮 -->
+<form action="merchantLogin.jsp" method="get" style="margin-top: 350px;">
+    <input type="submit" value="商家登录" class="merchant-login-button">
 </form>
 
 <!-- 返回首页按钮 -->
-<form action="index.jsp" method="get" style="margin-top: 350px;">
+<form action="index.jsp" method="get" style="margin-top: 420px;">
     <input type="submit" value="返回首页">
+
 </form>
 </body>
 </html>
-
-

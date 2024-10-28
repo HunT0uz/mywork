@@ -2,6 +2,9 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.*" %>
 <%
+    // 从 session 中获取商家用户名
+
+    String merchantUsername = (String) session.getAttribute("merchantUsername");
     List<String> productList = new ArrayList<>();
     Map<String, Double> products = new HashMap<>();
     Map<String, String> productImages = new HashMap<>(); // 用于存储商品图片
@@ -152,9 +155,15 @@
 
 <h2>
     <a href="cart.jsp" class="button">查看购物车</a>
+    <% if (merchantUsername == "adminis") { %>
     <a href="addProduct.jsp" class="button">添加/删除商品</a>
+    <button onclick="toggleEditMode()" class="button">编辑</button> <!-- 仅管理者可以看到 -->
+    <% } %>
+    <% if (merchantUsername != null) { %>
+    <a href="merchantDashboard.jsp" class="button">返回商家中心</a>
+    <% } %>
     <a href="userCenter.jsp" class="button">返回个人中心</a>
-    <button onclick="toggleEditMode()" class="button">编辑</button> <!-- 添加编辑按钮 -->
+
 </h2>
 </body>
 </html>

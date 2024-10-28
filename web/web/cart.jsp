@@ -5,7 +5,7 @@
 <%@ page import="java.util.HashMap" %>
 <%
     // 数据库连接信息
-    String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC"; // 数据库 URL
+    String jdbcUrl = session.getServletContext().getInitParameter("jdbcUrl"); // 数据库 URL
     String username = "root"; // 数据库用户
     String password = "1234"; // 数据库密码
 
