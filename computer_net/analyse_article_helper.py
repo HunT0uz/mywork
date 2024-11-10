@@ -132,12 +132,44 @@ def generate_industry(title, article):
         print(f"生成行业时发生错误: {e}")
     return ""
 
+<<<<<<< Updated upstream
+=======
+def generate_event_summary(title, article):
+    """生成重大事件摘要"""
+    spark = ChatSparkLLM(
+        spark_api_url=SPARKAI_URL,
+        spark_app_id=SPARKAI_APP_ID,
+        spark_api_key=SPARKAI_API_KEY,
+        spark_api_secret=SPARKAI_API_SECRET,
+        spark_llm_domain=SPARKAI_DOMAIN,
+        streaming=False,
+    )
+
+    content_with_instruction = f"{title}\n内容: {article}\n\n请总结这篇文章中的重大事件。"
+    messages = [ChatMessage(role="user", content=content_with_instruction)]
+
+    handler = ChunkPrintHandler()
+    try:
+        response = spark.generate([messages], callbacks=[handler])
+
+        if hasattr(response, 'generations') and len(response.generations) > 0:
+            event_summary = response.generations[0][0].text.strip()
+            return event_summary  # 返回生成的事件摘要
+    except Exception as e:
+        print(f"生成重大事件摘要时发生错误: {e}")
+    return ""
+
+>>>>>>> Stashed changes
 def clean_filename(title):
     """清理标题，生成合法的文件名"""
     # 使用正则表达式替换不合法字符
     return re.sub(r'[<>:"/\\|?*]', '', title)[:255]  # 限制文件名长度
 
+<<<<<<< Updated upstream
 def save_summary_to_file(title, url, summary, keywords, ai_technology, industry):
+=======
+def save_summary_to_file(title, url, summary, keywords, ai_technology, industry, event_summary):
+>>>>>>> Stashed changes
     """保存标题、链接和AI生成的总结到summary文件夹"""
     # 创建summary文件夹
     if not os.path.exists('summary'):
@@ -150,20 +182,34 @@ def save_summary_to_file(title, url, summary, keywords, ai_technology, industry)
     summary_file_path = os.path.join('summary', f'summary_{safe_title}.txt')
 
     with open(summary_file_path, 'w', encoding='utf-8') as f:
+<<<<<<< Updated upstream
         f.write(f"标题: {title}\n链接: {url}\n总结: {summary}\n关键词: {keywords}\nAI技术: {ai_technology}\n行业: {industry}\n")
 
     print(f"总结信息已保存到 {summary_file_path}")
 
 def insert_into_database(connection, title, url, keywords, ai_technology, industry):
+=======
+        f.write(f"标题: {title}\n链接: {url}\n总结: {summary}\n关键词: {keywords}\nAI技术: {ai_technology}\n行业: {industry}\n重大事件摘要: {event_summary}\n")
+
+    print(f"总结信息已保存到 {summary_file_path}")
+
+def insert_into_database(connection, title, url, keywords, ai_technology, industry, event_summary):
+>>>>>>> Stashed changes
     """插入数据到数据库"""
     if connection:
         cursor = connection.cursor()
         try:
             now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # 获取当前时间戳
             cursor.execute("""
+<<<<<<< Updated upstream
                 INSERT INTO articles_summary (title, url, keywords, ai_technology, industry, created_at) 
                 VALUES (%s, %s, %s, %s, %s, %s)
             """, (title, url, keywords, ai_technology, industry, now))
+=======
+                INSERT INTO articles_summary (title, url, keywords, ai_technology, industry, event_summary, created_at) 
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """, (title, url, keywords, ai_technology, industry, event_summary, now))
+>>>>>>> Stashed changes
 
             connection.commit()
             print(f"信息已插入到数据库: {title}")
@@ -183,6 +229,7 @@ def main():
                 # 仅使用前8000个字符
                 truncated_content = content[:8000]
 
+<<<<<<< Updated upstream
                 # 生成关键词、AI技术和行业，发生错误时跳过处理
                 keywords = generate_keywords(title, truncated_content)
                 ai_technology = generate_technology(title, truncated_content)
@@ -193,6 +240,19 @@ def main():
 
                 # 保存总结到文件
                 save_summary_to_file(title, url, content, keywords, ai_technology, industry)
+=======
+                # 生成关键词、AI技术、行业和重大事件摘要，发生错误时跳过处理
+                keywords = generate_keywords(title, truncated_content)
+                ai_technology = generate_technology(title, truncated_content)
+                industry = generate_industry(title, truncated_content)
+                event_summary = generate_event_summary(title, truncated_content)
+
+                # 一次性插入数据到数据库
+                insert_into_database(connection, title, url, keywords, ai_technology, industry, event_summary)
+
+                # 保存总结到文件
+                save_summary_to_file(title, url, content, keywords, ai_technology, industry, event_summary)
+>>>>>>> Stashed changes
 
             else:
                 print(f"标题 {title} 已经存在，跳过处理。")

@@ -103,9 +103,52 @@ def create_result_window(results):
     view_button.grid(row=1, column=0, columnspan=2, pady=10)
     stats_button = tk.Button(result_window, text="统计搜索结果数量", command=lambda: show_statistics(results), width=20)
     stats_button.grid(row=2, column=0, columnspan=2, pady=10)
+<<<<<<< Updated upstream
     result_window.grid_rowconfigure(0, weight=1)
     result_window.grid_columnconfigure(0, weight=1)
 
+=======
+    summary_button = tk.Button(result_window, text="查看文章总结", command=lambda: view_summary(listbox, results), width=20)
+    summary_button.grid(row=3, column=0, columnspan=2, pady=10)
+    result_window.grid_rowconfigure(0, weight=1)
+    result_window.grid_columnconfigure(0, weight=1)
+
+# 查看文章总结的函数
+def view_summary(listbox, results):
+    selected_index = listbox.curselection()
+    if not selected_index:
+        return
+    index = selected_index[0]
+    title = results.iloc[index]['标题']
+
+    engine = connect_to_db()
+    if engine is not None:
+        try:
+            query = f"SELECT event_summary, keywords, ai_technology, industry FROM articles_summary WHERE title = '{title}'"
+            summary = pd.read_sql(query, engine)
+            if summary.empty:
+                messagebox.showinfo("信息", f"{title} 没有找到总结信息")
+                return
+
+            summary_window = tk.Toplevel()
+            summary_window.title("文章总结")
+            scroll_bar = Scrollbar(summary_window)
+            scroll_bar.pack(side=tk.RIGHT, fill=tk.Y)
+            summary_text_area = Text(summary_window, wrap=tk.WORD, yscrollcommand=scroll_bar.set, font=("微软雅黑", 14))
+
+            # 展示标题和总结
+            summary_text_area.insert(tk.END, f"标题: {title}\n\n总结: {summary.iloc[0]['event_summary']}\n\n")
+            # 展示关键词、AI技术和行业
+            summary_text_area.insert(tk.END, f"关键词: {summary.iloc[0]['keywords']}\n")
+            summary_text_area.insert(tk.END, f"AI技术: {summary.iloc[0]['ai_technology']}\n")
+            summary_text_area.insert(tk.END, f"行业: {summary.iloc[0]['industry']}\n")
+
+            summary_text_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+            scroll_bar.config(command=summary_text_area.yview)
+        except Exception as e:
+            messagebox.showerror("错误", f"获取总结时发生错误: {e}")
+
+>>>>>>> Stashed changes
 # 显示统计信息的函数
 def show_statistics(results):
     if results is not None and not results.empty:
@@ -184,6 +227,20 @@ def generate_summary(title, article):
         print(f"生成总结时发生错误: {e}")
         return "生成总结时发生错误"
 
+<<<<<<< Updated upstream
+=======
+# 显示总结的函数
+def show_summary(title, content):
+    summary = generate_summary(title, content)
+    summary_window = tk.Toplevel()
+    summary_window.title("AI总结")
+    scroll_bar = Scrollbar(summary_window)
+    scroll_bar.pack(side=tk.RIGHT, fill=tk.Y)
+    summary_text_area = Text(summary_window, wrap=tk.WORD, yscrollcommand=scroll_bar.set, font=("微软雅黑", 14))
+    summary_text_area.insert(tk.END, summary)
+    summary_text_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+    scroll_bar.config(command=summary_text_area.yview)
+>>>>>>> Stashed changes
 
 # 查看文章的函数
 def view_article(listbox, results):
@@ -253,6 +310,7 @@ def open_article_window(results, index):
     article_window.grid_rowconfigure(5, weight=1)
     article_window.grid_columnconfigure(0, weight=1)
 
+<<<<<<< Updated upstream
 # 显示总结的函数
 def show_summary(title, content):
     summary = generate_summary(title, content)
@@ -265,6 +323,8 @@ def show_summary(title, content):
     summary_text_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
     scroll_bar.config(command=summary_text_area.yview)
 
+=======
+>>>>>>> Stashed changes
 # 打开链接的函数
 def open_link(url):
     if pd.notnull(url):
@@ -273,6 +333,10 @@ def open_link(url):
 # 创建主窗口
 root = tk.Tk()
 root.title("CSV导入到MySQL & 文章搜索")
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 label_csv = tk.Label(root, text="CSV 文件:")
 label_csv.grid(row=0, column=0)
 entry_csv = tk.Entry(root, width=60)
@@ -285,5 +349,40 @@ btn_search = tk.Button(root, text="搜索文章", command=search_database)
 btn_search.grid(row=1, column=0)
 btn_all_stats = tk.Button(root, text="统计所有网页数量", command=show_all_statistics)
 btn_all_stats.grid(row=1, column=2)
+<<<<<<< Updated upstream
+=======
+
+# 在此处定义 view_summaries 函数
+def view_summaries():
+    engine = connect_to_db()
+    if engine is not None:
+        try:
+            query = "SELECT title, event_summary, keywords, ai_technology, industry FROM articles_summary"
+            summaries = pd.read_sql(query, engine)
+            if summaries.empty:
+                messagebox.showinfo("信息", "没有找到任何总结信息")
+                return
+
+            summary_window = tk.Toplevel()
+            summary_window.title("总结信息")
+            scroll_bar = Scrollbar(summary_window)
+            scroll_bar.pack(side=tk.RIGHT, fill=tk.Y)
+            summary_text_area = Text(summary_window, wrap=tk.WORD, yscrollcommand=scroll_bar.set, font=("微软雅黑", 14))
+            for idx, row in summaries.iterrows():
+                summary_text_area.insert(tk.END, f"标题: {row['title']}\n")
+                summary_text_area.insert(tk.END, f"总结: {row['event_summary']}\n")
+                summary_text_area.insert(tk.END, f"关键词: {row['keywords']}\n")
+                summary_text_area.insert(tk.END, f"AI技术: {row['ai_technology']}\n")
+                summary_text_area.insert(tk.END, f"行业: {row['industry']}\n")
+                summary_text_area.insert(tk.END, "\n")  # 添加段落间隔
+            summary_text_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+            scroll_bar.config(command=summary_text_area.yview)
+        except Exception as e:
+            messagebox.showerror("错误", f"获取总结时发生错误: {e}")
+
+btn_view_summaries = tk.Button(root, text="查看总结", command=view_summaries)
+btn_view_summaries.grid(row=2, column=1)
+
+>>>>>>> Stashed changes
 root.geometry("600x200")
 root.mainloop()
