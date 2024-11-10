@@ -68,15 +68,15 @@ def run_statistics():
 
         # 打印高频词汇到文本框
         result_text.insert(tk.END, "关键词高频词汇统计：\n")
-        for word, count in keywords_freq.most_common(10):
+        for word, count in keywords_freq.most_common(15):  # 修改这里为15
             result_text.insert(tk.END, f"{word}: {count}\n")
 
         result_text.insert(tk.END, "\nAI技术高频词汇统计：\n")
-        for word, count in ai_technology_freq.most_common(10):
+        for word, count in ai_technology_freq.most_common(15):  # 修改这里为15
             result_text.insert(tk.END, f"{word}: {count}\n")
 
         result_text.insert(tk.END, "\n行业高频词汇统计：\n")
-        for word, count in industry_freq.most_common(10):
+        for word, count in industry_freq.most_common(15):  # 修改这里为15
             result_text.insert(tk.END, f"{word}: {count}\n")
 
         # 关闭数据库连接
@@ -85,6 +85,8 @@ def run_statistics():
             print("数据库连接已关闭。")
     else:
         result_text.insert(tk.END, "无法连接到数据库，跳过处理。\n")
+
+
 
 # 创建GUI窗口
 window = tk.Tk()

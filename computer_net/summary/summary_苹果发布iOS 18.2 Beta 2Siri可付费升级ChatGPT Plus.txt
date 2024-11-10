@@ -1,0 +1,10 @@
+标题: 苹果发布iOS 18.2 Beta 2:Siri可付费升级ChatGPT Plus
+链接: https://baijiahao.baidu.com/s?id=1814840935837204121&wfr=spider&for=pc
+总结: 快科技11月5日消息，苹果今天凌晨发布了全新的iOS 18.2 Beta 2，针对一些细节进行了修复改进，同时也完善了Apple Intelligence功能。Apple Intelligence forSiri的ChatGPT部分现在显示为免费用户提供的ChatGPT限制，同时还提供升级到付费ChatGPT Plus计划的选项。通过ChatGPT集成，用户可以免费访问ChatGPT，但只有少量使用最新ChatGPT-4o引擎的请求和少量可以创建的DALL-E 3图像。之后，访问权限将恢复到更基本的ChatGPT版本，OpenAI的运行成本更低。不受限制的访问需要ChatGPT Plus，价格为每月19.99美元。系统设置中带来了深色图标，深色模式下整体呈黑色，界面更统一。iPhone 16系列新增一个选项可以轻按锁定自动曝光和自动对焦设置，AE/AF锁定切换开关可通过转到设置>相机>相机控制来打开。允许在与Mac共享iPhone的热点连接时使用iPhone镜像，以前通过个人热点连接Mac不允许您使用iPhone镜像。值得注意的是，欧盟地区的iPadOS 18.2要求在打开Safari浏览器时选择默认浏览器，苹果已经开放该功能，允许用户从选项列表中选择默认Web浏览器。 举报/反馈
+关键词: 苹果发布iOS 18.2 Beta 2，Siri可付费升级ChatGPT Plus, 深色图标，iPhone 16系列新增选项
+AI技术: iOS 18.2 Beta 2更新了Siri的Apple Intelligence功能，增加了ChatGPT的限制和升级选项，并改进了系统设置界面。同时，iPhone 16系列新增了AE/AF锁定切换开关，允许在与Mac共享热点时使用iPhone镜像。此外，iPadOS 18.2要求选择默认浏览器。
+行业: 根据您提供的内容，我为您提取了以下三个行业：
+1. 科技行业（Technology Industry）
+2. 软件与服务行业（Software and Services Industry）
+3. 消费电子行业（Consumer Electronics Industry）
+重大事件摘要: 文章主要报道了苹果公司发布iOS 18.2 Beta 2的消息，并对Siri的ChatGPT功能进行了升级，增加了付费升级到ChatGPT Plus计划的选项。同时，文章中还提到了一些新功能的更新和改进，如系统设置中带来深色图标、iPhone 16系列新增AE/AF锁定切换开关等。此外，文章还涉及了欧盟地区的iPadOS 18.2要求在打开Safari浏览器时选择默认浏览器的情况。

@@ -1,0 +1,19 @@
+标题: 什么是深度学习
+链接: http://www.baidu.com/link?url=8Xh22BDV2EzDJSfvQCi6lrqLGjr7W65Zm92mrAjsla_FdnA1YZRu2FcKVMMcMWvJMKvvJHLom8eIvCe6F538MHc_1WWyD0vTQ9orSHkVzNU6FPrwsAyzE9PWupoxba253DxdTblbgI8VPnE7cSVHUIOevEaJSzpGA8y-f8Q7QBjFIyM0vbpjZGpX4DlPaHUOyxEoIXL-UmP72inJLBeDTgL0GGwErRGQWgmvg6v5gNCQAfIOEeyCYeF2Gpb2EO3XRYxrtVg-YA833jJWfxs2oh8MqIRqaTT48_bt99FbY2OJAwGrT25lLl1O1jbR4wx9bRpC79YYNqMxjVRgmn17I_
+总结: 请扫描上方的二维码预览
+关键词: 深度学习，神经网络，特征提取，模型训练
+AI技术: 由于我无法直接扫描二维码或查看图像内容，我将基于您的问题提供一些可能的AI技术关键词。这些关键词与深度学习相关，但不包括“人工智能”本身：
+
+1. 神经网络（Neural Networks）
+2. 卷积神经网络（Convolutional Neural Networks,  CNN）
+3. 递归神经网络（Recurrent Neural Networks,  RNN）
+4. 长短期记忆网络（Long Short-Term Memory,  LSTM）
+5. 生成对抗网络（Generative Adversarial Networks,  GAN）
+
+请注意，这些只是深度学习领域的一些关键技术，实际上还有许多其他技术和变体。如果您需要更具体的信息，请提供更多上下文或详细描述您的需求。
+行业: 医疗,  金融,  自动驾驶
+重大事件摘要: 很抱歉，但作为一个文本处理的AI，我无法扫描二维码或预览内容。不过，我可以提供有关深度学习的信息。
+
+深度学习是机器学习的一个子领域，它使用类似于人脑的神经网络结构来学习数据的表示和特征。这些神经网络通常由多个层组成，每一层都从前一层接收输入，并通过加权和激活函数的处理产生输出。深度学习模型能够自动从数据中学习复杂的模式和特征，这使得它在图像识别、语音识别、自然语言处理等领域取得了显著的成就。
+
+如果你有关于深度学习的具体问题或者需要了解某个特定方面的内容，请告诉我，我会尽力提供帮助。

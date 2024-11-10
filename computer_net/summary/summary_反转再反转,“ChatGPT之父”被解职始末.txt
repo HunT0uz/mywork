@@ -1,0 +1,27 @@
+标题: 反转再反转,“ChatGPT之父”被解职始末
+链接: http://baijiahao.baidu.com/s?id=1783175196885150381&wfr=spider&for=pc
+总结: 原创 马云飞 秦铭蔚 国际金融报人工智能明星公司OpenAI“闪电兵变”的反转剧情令人出乎意料。北京时间11月20日下午，微软CEO萨提亚·纳德拉（Satya Nadella）在社交平台上宣布，OpenAI创始人Sam Altman、Greg Brockman及其同事将加入微软，领导一个新的高级人工智能研究团队，此外，微软将保持着和OpenAI的合作伙伴关系。随后Sam Altman转发该帖并表示：“任务继续。”至此，这场不足72小时、围绕着“ChatGPT之父”被驱逐出公司并被董事会除名、OpenAI高层“内斗”的大戏似乎迎来结局：Sam Altman并没有回归，而是接过了OpenAI最大的投资者与重要合作伙伴——微软的橄榄枝。创始人被“优化”始末在刚刚过去的周末，OpenAI的管理层几经更迭，在全球科技领域引发了激烈的讨论。当地时间11月17日，OpenAI的一则公告如同平地惊雷。内容显示，当日，Sam Altman将辞去首席执行官职务并离开董事会，首席技术官Mira Murati将担任临时首席执行官，立即生效。声明称Mira Murati的能力和履历可以在过渡时期担任临时CEO职位，此外还在寻找CEO的人选。上述声明还一并表示，作为过渡的一部分，Greg Brockman也将辞去董事会主席职务，但继续担任公司职务，向CEO汇报。然而，在上述公告发出几个小时后，Greg Brockman就宣布辞职。随后，Sam Altman与Greg Brockman在社交平台上发布联合声明，表示对于此次董事会做法的“震惊与悲痛”。值得一提的是，据媒体报道，当天跟随Sam Altman离开OpenAI的不只有Greg Brockman，三位高级研究员Jakob Pachocki、Aleksander Madry和Szymon Sidor，也宣布辞职并表示对当前事态的抗议。而在此次公告前，OpenAI在本月12日更新了ChatGPT的新版本GPT-4，而Sam Altman本人在被开除前两天，还代表OpenAI分别参加了微软Ignite大会和在加州的活动。这些迹象或表明，此次职务解除是一次“奇袭”，而根据事件主角的发声以及多方消息，主导此次辞退事件的人正是该公司首席科学家Ilya Sutskever。11月18日，Greg Brockman在社交平台上发布了事件回顾，据他回忆，公告前一晚，Sam Altman收到Ilya Sutskever的短信，要求其在第二天进行谈话。紧接着上周五中午，Sam Altman在线上参与了除Greg Brockman以外全员到场的董事会会议，并在此次会议上被董事会宣布解除职务。Greg Brockman还称，除临时CEO以外，OpenAI其他高管在事先均对此次职务解除毫不知情。同样毫不知情的还有OpenAI的投资者们，投资OpenAI超过100亿美元、拥有OpenAI Global LLC 49%股份的微软也是在公告发布前几分钟才从公司董事会处知晓此事。值得注意的是，OpenAI这种可以直接开除CEO的公司管理框架。正是由Sam Altman本人主导设计的，目的是为了制衡营利公司管理层。在此次解除Altman职务的公告中，OpenAI开篇以“OpenAI,Inc.,the 501(c)(3)”强调公司属性，提到解除Sam Altman的主要原因时也强调了Altman在与董事会的沟通中存在的问题，以及董事会对他的不信任，并在公告结尾处再次强调了OpenAI是一个非营利组织，董事会的大多数成员是独立的且不持有公司的股份。随着事情的发酵，11月19日，Sam Altman在X上发布推文，“我非常爱OpenAI团队”。一时间，大量OpenAI的高管和核心员工纷纷转发Sam Altman的推文，并表示“爱心”与支持。除了核心员工的公开支持以外，Sam Altman还得到OpenAI主要投资者们的支持。在内部员工与外部投资者的双重施压下，OpenAI董事会表示将重新请回Altman和Brockman。当地时间11月19日中午，首席战略官Jason Kwon在发给员工的内部备忘录中表示，OpenAI对于创始人、前总裁和其他关键员工重回公司感到“乐观”。11月19日下午，Altman在社交平台X发布推文“这是我第一次也是最后一次戴这个”，配图是他佩戴着OpenAI的访客工牌，出现在旧金山总部。随后，OpenAI首席战略官Jason Kwon回复了此条推文，证实Altman已经现身OpenAI总部。然而，据国外多家媒体报道，OpenAI董事会和Sam Altman之间的谈判尚未取得任何结果，也不清楚Altman是否会接受董事会的回归提议。尽管多名OpenAI高管和投资者都希望恢复Altman的职位，但在讨论公司董事会的构成和角色的问题上陷入了僵局。有报道援引知情人士说法，Altman回归公司的条件，包括要求OpenAI最大的投资者微软在董事会中占有一席之地，同时Altman还想让他的其他盟友担任董事。不过，事件发展很快又转变了方向。当地时间11月19日晚间，Altman重回OpenAI的谈判宣告破裂，亚马逊旗下游戏流媒体平台Twitch联合创始人Emmett Shear将担任OpenAI新一任CEO。根据The Information报道，OpenAI联合创始人、董事会董事兼公司首席科学家Ilya Sutskever表示，Altman将不再担任OpenAI首席执行官。尽管公司高管曾努力让他回来，但在与上周五解雇Altman的董事会，以及其他公司领导人和顶级投资者进行了一个周末的谈判后，公司决定Altman将不会回到OpenAI。随后在11月20日，微软CEO Satya Nadella宣布，Sam Altman、Greg Brockman将加入微软。OpenAI要变天了？公开资料显示，OpenAI成立于2015年，起初是一家专注于AI的非营利研究机构，成立之初的愿景是为了防止人工智能威胁人类，应当积极推动开发造福全人类的通用人工智能（AGI），让每个人都用上，去对抗大公司或少数人对人工智能的垄断。2019年，OpenAI进行了重组，获得了微软10亿美元的投资。Sam Altman是OpenAI的创始人之一，于2020年开始担任首席执行官。之后，OpenAI致力于大语言模型GPT的开发，2022年底，随着ChatGPT发布并掀起了生成式人工智能的热潮，Sam Altman也被外界称为“ChatGPT之父”。当地时间11月6日，OpenAI召开了首届开发者大会，短短45分钟的时间里，Sam Altman公布了过去一年中GPT的各项数据，以及最新版本GPT-4 Turbo的升级功能。“今天，有大约200万开发者使用我们的API进行开发，超过92%的财富500强公司使用我们的产品，而ChatGPT的每周活跃用户大约有1亿。”在演讲现场，Sam Altman自信的表示，“随着GPT-4的发布，它仍然是全世界能力最强的大模型。”不过上述开发者大会结束两天后，当地时间11月8日从早上9点开始，ChatGPT遇到大规模的宕机，持续了约2个小时。当日晚间，ChatGPT和API再次出现了有时无法打开的问题。第二天，微软宣布出于安全考虑，暂时阻止员工使用ChatGPT；11月15日，Sam Altman在社交媒体上宣布，由于用户量过大，ChatGPT Plus付费版暂停注册。值得一提的是，对于Sam Altman被解除职务一事，作为OpenAI的早期投资者，埃隆·马斯克（Elon Musk）也进行了发声：“非常重要的是，公众应该知道为何董事会如此坚决地做出决定。如果这关乎AI安全，那将会影响整个地球。”至此，随着Altman加入微软，围绕着OpenAI CEO人选的这场高层“宫斗”似乎落下了帷幕。然而，由此引发的“蝴蝶效应”仍在继续，据媒体报道，在确认Altman不会回归公司的情况下，OpenAI公司数十名员工相继递交了辞呈。微软与OpenAI的关系是否会发生改变、Altman将在微软有哪些新的行动、OpenAI这家明星公司又将走向何方，这一系列问题仍将值得继续关注。记者： 马云飞 特约记者： 秦铭蔚原标题：《反转再反转，“ChatGPT之父”被解职始末》
+关键词: OpenAI,  Sam Altman,  微软
+AI技术: ChatGPT,  GPT-4 Turbo,  GPT-4
+行业: 科技,  金融,  游戏
+重大事件摘要: 这篇文章详细报道了OpenAI创始人Sam Altman被解职的整个过程，以及随后的一系列事件。以下是文章中提到的重大事件：
+
+1. **Sam Altman被解职**：2023年11月17日，OpenAI宣布Sam Altman辞去首席执行官职务并离开董事会，由首席技术官Mira Murati接任临时首席执行官。
+
+2. **高层动荡**：在Altman被解职后，Greg Brockman也宣布辞去董事会主席职务，但继续担任公司职务。此外，三位高级研究员Jakob Pachocki、Aleksander Madry和Szymon Sidor也辞职以示抗议。
+
+3. **投资者反应**：作为OpenAI的主要投资者，微软对此次人事变动表示震惊，并在公告前几分钟才得知此事。
+
+4. **员工和投资者支持**：大量OpenAI的高管和核心员工公开支持Sam Altman，同时他得到了OpenAI主要投资者的支持。
+
+5. **谈判破裂**：尽管有恢复Altman职位的努力，但与董事会和其他领导人的谈判未能取得结果，最终决定Altman不会回到OpenAI。
+
+6. **新CEO任命**：亚马逊旗下Twitch联合创始人Emmett Shear被任命为OpenAI的新一任CEO。
+
+7. **Sam Altman加入微软**：2023年11月20日，微软CEO Satya Nadella宣布Sam Altman和Greg Brockman将加入微软，领导一个新的高级人工智能研究团队。
+
+8. **员工离职潮**：确认Altman不会回归后，OpenAI数十名员工递交了辞呈。
+
+9. **未来展望**：文章最后提出了关于微软与OpenAI关系变化、Altman在微软的新角色以及OpenAI未来走向的问题。
+
+这些事件共同构成了围绕“ChatGPT之父”被解职的复杂剧情，涉及公司治理、高层权力斗争、投资者关系和员工忠诚度等多个方面。

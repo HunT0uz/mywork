@@ -34,19 +34,38 @@ def connect_to_db():
 # 将CSV文件导入到数据库的函数
 def import_csv_to_db(engine, csv_file_path, table_name):
     try:
+        # 读取CSV文件
         df = pd.read_csv(csv_file_path)
 
+        # 检查数据是否为空
+        if df.empty:
+            messagebox.showerror("错误", "CSV 文件为空。")
+            return
+
+        # 指定需要保留的列名
+        columns_to_keep = ['关键词', '页码', '标题', '发布时间', '简介', '百度链接', '网站名称', '网站内容']
+
+        # 检查是否缺少需要的列
+        missing_columns = [col for col in columns_to_keep if col not in df.columns]
+        if missing_columns:
+            messagebox.showerror("错误", f"CSV 文件缺少必要的列: {', '.join(missing_columns)}")
+            return
+
+        # 过滤掉不需要的列
+        df_filtered = df[columns_to_keep]
+
         # 检查并处理链接
-        if '百度链接' not in df.columns or '网站内容' not in df.columns:
+        if '百度链接' not in df_filtered.columns or '网站内容' not in df_filtered.columns:
             messagebox.showerror("错误", "CSV 必须包含 '百度链接' 和 '网站内容' 列。")
             return
 
-        df = df[df['网站内容'].notna()]
-        if df.empty:
+        df_filtered = df_filtered[df_filtered['网站内容'].notna()]
+        if df_filtered.empty:
             messagebox.showerror("错误", "过滤后没有有效数据可以导入。")
             return
 
-        df.to_sql(table_name, con=engine, if_exists='append', index=False)
+        # 导入数据到数据库
+        df_filtered.to_sql(table_name, con=engine, if_exists='append', index=False)
         messagebox.showinfo("成功", "CSV 文件已经成功导入")
     except Exception as e:
         messagebox.showerror("错误", f"导入CSV失败: {e}")
@@ -103,11 +122,6 @@ def create_result_window(results):
     view_button.grid(row=1, column=0, columnspan=2, pady=10)
     stats_button = tk.Button(result_window, text="统计搜索结果数量", command=lambda: show_statistics(results), width=20)
     stats_button.grid(row=2, column=0, columnspan=2, pady=10)
-<<<<<<< Updated upstream
-    result_window.grid_rowconfigure(0, weight=1)
-    result_window.grid_columnconfigure(0, weight=1)
-
-=======
     summary_button = tk.Button(result_window, text="查看文章总结", command=lambda: view_summary(listbox, results), width=20)
     summary_button.grid(row=3, column=0, columnspan=2, pady=10)
     result_window.grid_rowconfigure(0, weight=1)
@@ -148,7 +162,6 @@ def view_summary(listbox, results):
         except Exception as e:
             messagebox.showerror("错误", f"获取总结时发生错误: {e}")
 
->>>>>>> Stashed changes
 # 显示统计信息的函数
 def show_statistics(results):
     if results is not None and not results.empty:
@@ -159,12 +172,13 @@ def show_statistics(results):
             duplicate_links_list = results[duplicate_links]['百度链接'].unique().tolist()
             similar_content = results['网站内容'].duplicated(keep=False)
             similar_count = similar_content.sum()
-            similar_content_list = results[similar_content]['网站内容'].unique().tolist()
+            similar_content_list = results[similar_content]['标题'].unique().tolist()  # 只提取标题
+
             messagebox.showinfo(
                 "统计结果",
                 f"搜索结果总数量: {total_count}\n"
-                f"重复网页数量 (链接相同): {duplicate_count} (类型: {', '.join(duplicate_links_list)})\n"
-                f"相似网页数量 (内容相似): {similar_count} (类型: {', '.join(similar_content_list)})"
+                f"重复网页数量 (链接相同): {duplicate_count} (链接: {', '.join(duplicate_links_list)})\n"
+                f"相似网页数量 (内容相似): {similar_count} (标题: {', '.join(similar_content_list)})"
             )
         except Exception as e:
             messagebox.showerror("错误", f"统计过程发生错误: {e}")
@@ -227,8 +241,6 @@ def generate_summary(title, article):
         print(f"生成总结时发生错误: {e}")
         return "生成总结时发生错误"
 
-<<<<<<< Updated upstream
-=======
 # 显示总结的函数
 def show_summary(title, content):
     summary = generate_summary(title, content)
@@ -240,7 +252,6 @@ def show_summary(title, content):
     summary_text_area.insert(tk.END, summary)
     summary_text_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
     scroll_bar.config(command=summary_text_area.yview)
->>>>>>> Stashed changes
 
 # 查看文章的函数
 def view_article(listbox, results):
@@ -310,21 +321,6 @@ def open_article_window(results, index):
     article_window.grid_rowconfigure(5, weight=1)
     article_window.grid_columnconfigure(0, weight=1)
 
-<<<<<<< Updated upstream
-# 显示总结的函数
-def show_summary(title, content):
-    summary = generate_summary(title, content)
-    summary_window = tk.Toplevel()
-    summary_window.title("AI总结")
-    scroll_bar = Scrollbar(summary_window)
-    scroll_bar.pack(side=tk.RIGHT, fill=tk.Y)
-    summary_text_area = Text(summary_window, wrap=tk.WORD, yscrollcommand=scroll_bar.set, font=("微软雅黑", 14))
-    summary_text_area.insert(tk.END, summary)
-    summary_text_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
-    scroll_bar.config(command=summary_text_area.yview)
-
-=======
->>>>>>> Stashed changes
 # 打开链接的函数
 def open_link(url):
     if pd.notnull(url):
@@ -333,10 +329,7 @@ def open_link(url):
 # 创建主窗口
 root = tk.Tk()
 root.title("CSV导入到MySQL & 文章搜索")
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 label_csv = tk.Label(root, text="CSV 文件:")
 label_csv.grid(row=0, column=0)
 entry_csv = tk.Entry(root, width=60)
@@ -349,8 +342,6 @@ btn_search = tk.Button(root, text="搜索文章", command=search_database)
 btn_search.grid(row=1, column=0)
 btn_all_stats = tk.Button(root, text="统计所有网页数量", command=show_all_statistics)
 btn_all_stats.grid(row=1, column=2)
-<<<<<<< Updated upstream
-=======
 
 # 在此处定义 view_summaries 函数
 def view_summaries():
@@ -383,6 +374,5 @@ def view_summaries():
 btn_view_summaries = tk.Button(root, text="查看总结", command=view_summaries)
 btn_view_summaries.grid(row=2, column=1)
 
->>>>>>> Stashed changes
 root.geometry("600x200")
 root.mainloop()

@@ -32,22 +32,20 @@ def connect_to_db():
 def fetch_monthly_growth(connection):
     """按月从数据库中提取网页数量并进行唯一性检查"""
     monthly_data = {}
-    unique_titles = set()
     unique_links = set()
 
     try:
         if connection.is_connected():
             cursor = connection.cursor()
             cursor.execute("""
-                SELECT DATE_FORMAT(converted_date, '%Y-%m') AS month, 标题, 百度链接
+                SELECT DATE_FORMAT(converted_date, '%Y-%m') AS month, 百度链接
                 FROM articles;
             """)
             rows = cursor.fetchall()
             for row in rows:
-                month, title, baidu_link = row
-                if title and baidu_link:  # 仅处理有效的标题和链接
-                    if title not in unique_titles and baidu_link not in unique_links:
-                        unique_titles.add(title)
+                month, baidu_link = row  # 改为只提取月和百度链接
+                if baidu_link:  # 仅处理有效的链接
+                    if baidu_link not in unique_links:
                         unique_links.add(baidu_link)
 
                         if month not in monthly_data:
@@ -59,6 +57,7 @@ def fetch_monthly_growth(connection):
     except Error as e:
         print(f"数据库错误: {e}")
     return monthly_data
+
 
 def save_to_csv(monthly_data, filename="monthly_growth.csv"):
     """将每月网页数量数据保存至 CSV 文件"""

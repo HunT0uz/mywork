@@ -1,0 +1,11 @@
+标题: 机器学习入门_机器学习预测函数-CSDN博客
+链接: http://www.baidu.com/link?url=AZiLSwxEjALxevqQCLIGX9C9_FxW_UQMZ4WOeS8rdy8MnNGsNnUAg7vlxxr_04vW2eqSYL0UIeE4Oji9VHeqBOZfrLU98bTXIxY_-QQF497
+总结: 《Packt.Machine.Learning....整体而言，《Packt.Machine.Learning.Fundamentals.pdf》是一本权威且实用的机器学习入门指南，旨在为读者构建坚实的机器学习基础，为他们在相关领域的职业发展打下坚实的基础。程序员面试、算法研究、机器学习、大模型/ChatGPT/AIGC、论文审稿、具身...11-7开博10年有余,回首这10余年,自己一开始侧重编程、面试、数据结构/算法,中途侧重数据挖掘、机器学习,近期则专攻AIGC/ChatGPT,而自己在本blog上也着实花费了巨大的时间和精力,写的东西可能也够几本书的内容了。然不管怎样,希望我能真真正正的为读者提供实实在在的价值与帮助。【机器学习】马尔可夫(Markov)预测法整理_马尔科夫预测能解决...10-20【机器学习】马尔可夫(Markov)预测法整理隐马尔可夫模型(HiddenMarkovModel,HMM)作为一种统计分析模型,创立于20世纪70年代。80年代得到了传播和发展,成为信号处理的一个重要方向,现已成功地用于语音识别,行为识别,文字识别以及故障诊断等领域。基本理论隐马尔可夫模型是马尔可夫链的一种,它的状态不能直接观察到,...机器学习11种经典时间序列预测方法_时序预测机器学习方法11-10Autoregression(AR)方法将序列中的下一步预测结果为先前时间步长观测值的线性函数。模型的符号:模型p的阶数作为AR函数的参数,即AR§。例如,AR(1)是一阶Autoregressionmodel(自回归模型)。fromstatsmodels.tsa.ar_modelimportAutoRegfromrandomimportrandom#contriveddatasetdata=[x+random()forxinrange...
+关键词: Packt.Machine.Learning.Fundamentals.pdf, 马尔可夫预测法, 隐马尔可夫模型, Autoregression(AR)方法
+AI技术: 马尔可夫预测法, 隐马尔可夫模型, Autoregression(AR), 机器学习, 时间序列预测方法
+行业: 程序员面试,  数据挖掘,  故障诊断
+重大事件摘要: 这篇文章是一篇关于机器学习入门的博客文章，主要介绍了机器学习预测函数的一些基本概念和方法。文章首先提到了《Packt.Machine.Learning.Fundamentals.pdf》这本书，称其为一本权威且实用的机器学习入门指南，旨在为读者构建坚实的机器学习基础。
+
+接下来，文章详细介绍了马尔可夫预测法和隐马尔可夫模型（Hidden Markov Model, HMM）。马尔可夫预测法是一种基于马尔可夫链的预测方法，而隐马尔可夫模型是一种统计分析模型，用于处理状态不能直接观察到的情况。这两种方法在语音识别、行为识别、文字识别以及故障诊断等领域有广泛的应用。
+
+最后，文章还介绍了11种经典的时间序列预测方法，其中包括自回归模型（Autoregression, AR）等。这些方法主要用于对时间序列数据进行预测，如股票价格、天气等。

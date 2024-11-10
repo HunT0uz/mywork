@@ -1,0 +1,29 @@
+标题: 机器学习、深度学习面试知识点汇总
+链接: http://www.baidu.com/link?url=pUqvEcybjhQhjdeARUWozXk1d1wSlRTPInunIEGatZc9LfO8XxOsRa7tUWxQE92kgkUiZfTVparGLxJE8eC7hgcKSyw_BmIzdeJx0jwhCwIRRJ_roNzUaEtaj_34abgrKSFnBEV6vWp5ZEPyzIdSBOaWt5Xt8AhLCVGZsJlrsrdrf8Otn60F6WgIQYuCOVKIxADa4bsP5jO3vvLhzAgmpuId27HDOpKs3zaC8hv-Nz00OcNDlI7SKjQ58kKUI0yTkpCpLGtCCHbb54HmUzALmq
+总结: 点击上方“小白学视觉”，选择加"星标""bottleneck"结构(具体细节看图)。googlenet网络结构中为了避免梯度消失，在中间的两个位置加了两个softmax损失，所以会有三个loss，整个网络的loss是通过三个loss乘上权重相加后得到相关文章：https://zhuanlan.zhihu.com/p/42704781inception结构的特点：1、增加了网络的宽度，同时也提高了对于不同尺度的适应程度。2、使用1x1卷积核对输入的特征图进行降维处理，这样就会极大地减少参数量，从而减少计算量。3、在V3中使用了多个小卷积核代替大卷积核的方法，除了规整的的正方形，我们还有分解版本的3x3=3x1+1x3，这个效果在深度较深的情况下比规整的卷积核更好。4、发明了Bottleneck的核心思想还是利用多个小卷积核替代一个大卷积核，利用1x1卷积核替代大的卷积核的一部分工作。也就是先1x1降低通道然后普通3x3然后再1x1回去。Xception:改进了inception，提出的&nbsp;depthwiseSeparableConv&nbsp;让人眼前一亮。https://www.jianshu.com/p/4708a09c4352ResNet:越深的网络越难进行优化，有一个特点需要搞明白，越深的层最起码表现应该和浅层的一样，不能比浅层的还差。对于更深的Resnet(50+)，这里采用bottleneck层(也就是两个1x1分别降维和升维)去提升网络的效率。更详细的描述可以看百面机器学习和ppt。相关讲解：https://zhuanlan.zhihu.com/p/42706477DenseNet不能简单说densenet更好，二者比较，ResNet是更一般的模型，DenseNet是更特化的模型。DenseNet用于图像处理可能比ResNet表现更好，本质是DenseNet更能和图像的信息分布特点匹配，是使用了多尺度的Kernel。但是也有缺点最直接的计算就是一次推断中所产生的所有featuremap数目。有些框架会有优化，自动把比较靠前的层的featuremap释放掉，所以显存就会减少，或者inplace操作通过重新计算的方法减少一部分显存，但是densenet因为需要重复利用比较靠前的featuremap，所以无法释放，导致显存占用过大。正是这种_concat_造成densenet能更密集的连接。SeNet：全称为Squeeze-and-ExcitationNetworks。属于注意力特征提取的范畴，加了GP(Globalpooling)和两个FC再加上sigmoid和scale。也就是生成注意力掩膜，去乘以输入的x得到新的x。核心思想就是去学习每个特征通道的重要程度，然后根据这个重要程度去提升有用的特征并抑制对当前任务用处不大的特征。这个给每一个特征层通道去乘以通过sigmoid得到的重要系数，其实和用bn层去观察哪个系数重要一样。缺点：由于在主干上存在0~1的scale操作，在网络较深BP优化时就会在靠近输入层容易出现梯度消散的情况，导致模型难以优化。http://www.sohu.com/a/161633191_465975WideResidualNetworksResNeXt:是resnet和inception的结合体，旁边的residualconnection就是公式中的x直接连过来，然后剩下的是32组独立的同样结构的变换，最后再进行融合，符合split-transform-merge的模式。虽然分了32组，都是先点卷积降维，然后3x3普通卷积，然后1x1卷积升维(与Mobilenetv2中的相反)相关介绍：https://zhuanlan.zhihu.com/p/51075096DenselyConnectedConvolutionalNetworks:有利于减轻梯度消失的情况，增强了特征的流动。shufflenet:https://blog.csdn.net/u011974639/article/details/79200559一些统计知识正太分布:https://blog.csdn.net/yaningli/article/details/78051361关于如何训练(训练过程中的一些问题)MaxPool导致的训练震荡(通过在MaxPool之后加上L2Norm):https://mp.weixin.qq.com/s/QR-KzLxOBazSbEFYoP334Q全连接层的好伴侣：空间金字塔池化（SPP）https://zhuanlan.zhihu.com/p/64510297感受野计算感受野计算有两个公式，一个普通公式一个通项公式:需要注意，卷积和池化都可以增加感受野。http://zike.io/posts/calculate-receptive-field-for-vgg-16/本文仅做学术分享，如有侵权，请联系删文。下载1：OpenCV-Contrib扩展模块中文版教程在「小白学视觉」公众号后台回复：扩展模块中文教程，即可下载全网第一份OpenCV扩展模块教程中文版，涵盖扩展模块安装、SFM算法、立体视觉、目标跟踪、生物视觉、超分辨率处理等二十多章内容。下载2：Python视觉实战项目52讲在「小白学视觉」公众号后台回复：Python视觉实战项目，即可下载包括图像分割、口罩检测、车道线检测、车辆计数、添加眼线、车牌识别、字符识别、情绪检测、文本内容提取、面部识别等31个视觉实战项目，助力快速学校计算机视觉。下载3：OpenCV实战项目20讲在「小白学视觉」公众号后台回复：OpenCV实战项目20讲，即可下载含有20个基于OpenCV实现20个实战项目，实现OpenCV学习进阶。交流群欢迎加入公众号读者群一起和同行交流，目前有SLAM、三维视觉、传感器、自动驾驶、计算摄影、检测、分割、识别、医学影像、GAN、算法竞赛等微信群（以后会逐渐细分），请扫描下面微信号加群，备注：”昵称+学校/公司+研究方向“，例如：”张三&nbsp;+&nbsp;上海交大&nbsp;+&nbsp;视觉SLAM“。请按照格式备注，否则不予通过。添加成功后会根据研究方向邀请进入相关微信群。请勿在群内发送广告，否则会请出群，谢谢理解~预览时标签不可点关闭更多小程序广告搜索「undefined」网络结果
+关键词: 机器学习, 深度学习, 卷积神经网络, 优化算法
+AI技术: 机器学习, 深度学习, 卷积神经网络, 残差网络, ResNet
+行业: 机器学习, 深度学习, 计算机视觉
+重大事件摘要: 这篇文章主要汇总了机器学习和深度学习面试中可能涉及的关键知识点，包括各种神经网络结构的特点、改进和比较，以及一些统计知识和训练技巧。以下是文章中提到的重大事件：
+
+1. **Bottleneck结构**：在GoogleNet网络中为了避免梯度消失问题，引入了两个softmax损失函数，形成了三个损失值的加权和作为整个网络的loss。
+
+2. **Inception结构**：增加了网络宽度和对不同尺度的适应程度，使用1x1卷积核降维处理特征图，减少参数量和计算量。V3版本中使用多个小卷积核代替大卷积核，提高了深度较深时的效果。
+
+3. **ResNet（残差网络）**：为了解决深层网络优化困难的问题，采用了bottleneck层提升网络效率。对于更深的ResNet，使用两个1x1卷积核分别进行降维和升维。
+
+4. **DenseNet与ResNet的比较**：DenseNet通过多尺度Kernel更匹配图像的信息分布特点，但因需要重复利用较早层的featuremap导致显存占用过大。
+
+5. **SeNet（Squeeze-and-Excitation Networks）**：属于注意力特征提取范畴，通过生成注意力掩膜来提升有用特征并抑制无用特征。但在网络较深时可能出现梯度消散问题。
+
+6. **Wide Residual Networks (ResNeXt)**：结合了ResNet和Inception的优点，采用split-transform-merge模式，先点卷积降维，然后3x3普通卷积，最后1x1卷积升维。
+
+7. **Densely Connected Convolutional Networks**：有利于减轻梯度消失情况，增强特征流动。
+
+8. **ShuffleNet**：轻量级神经网络结构，适用于移动设备和嵌入式视觉应用系统前端。
+
+9. **统计知识**：介绍了正态分布及其在数据分析中的应用。
+
+10. **训练技巧**：讨论了MaxPool导致的训练震荡问题及解决方法（如在MaxPool后加L2Norm），全连接层的好伴侣空间金字塔池化（SPP），以及感受野计算的方法。
+
+此外，文章还提供了一些资源下载链接，包括OpenCV扩展模块教程、Python视觉实战项目和OpenCV实战项目等，以帮助读者更好地学习和实践计算机视觉相关技术。同时，也邀请读者加入交流群，与同行进行交流学习。

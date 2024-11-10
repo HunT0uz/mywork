@@ -1,0 +1,7 @@
+标题: 机器学习术语表:机器学习基础知识 | Machine Learning | G...
+链接: http://www.baidu.com/link?url=-KmgkV2XGanNA17f-rn88ULgpsYnUYBJ7LXjipBkRvZdk26dtQ-31EK0kwPeK-WVwJ6VbywLgKLZ0LDRYtH3wiNbp-NQ1E3ph6xip-3CaEwM2ulGlLXPQbuGPAkhIK1b
+总结: L2loss=&amp;#x2211;i=0n(yi&amp;#x2212;y&amp;#x005E;i)2"role="presentation"style="font-size:100%;display:inline-block;position:relative;">L2loss=∑i=0n(yi−y^i)2其中：n"role="presentation"style="font-size:100%;display:inline-block;position:relative;">n为样本数。y"role="presentation"style="font-size:100%;display:inline-block;position:relative;">y是标签的实际值。y&amp;#x005E;"role="presentation"style="font-size:100%;display:inline-block;position:relative;">y^是模型针对y"role="presentation"style="font-size:100%;display:inline-block;position:relative;">y预测的值。
+关键词: L2loss, 样本数, 标签的实际值, 模型针对y预测的值。
+AI技术: 机器学习,  L2loss,  样本数,  标签,  模型预测
+行业: 金融，医疗，教育
+重大事件摘要: 这篇文章介绍了机器学习术语表中的一些基础知识。其中包括L2损失函数的定义和计算方法。L2损失函数是机器学习中常用的损失函数之一，用于衡量模型预测值与实际值之间的差异。文章还解释了样本数、标签的实际值和模型预测值的含义。

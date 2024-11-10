@@ -45,20 +45,8 @@ def fetch_articles_from_db(connection):
         print(f"数据库错误: {e}")  # 输出数据库错误信息
     return articles  # 返回包含标题、内容和链接的文章列表
 
-def is_unique_title(title, connection):
-    """检查标题在数据库中是否唯一"""
-    try:
-        if connection.is_connected():
-            cursor = connection.cursor()
-            cursor.execute("SELECT COUNT(*) FROM articles_summary WHERE title = %s", (title,))
-            result = cursor.fetchone()
-            return result[0] == 0  # 0 表示该标题在数据库中是唯一的
-    except Error as e:
-        print(f"数据库错误: {e}")
-    return True  # 默认返回唯一
-
 def generate_keywords(title, article):
-    """生成关键词，只提取三个关键词"""
+    """生成关键词，只提取四个关键词"""
     spark = ChatSparkLLM(
         spark_api_url=SPARKAI_URL,
         spark_app_id=SPARKAI_APP_ID,
@@ -68,7 +56,7 @@ def generate_keywords(title, article):
         streaming=False,
     )
 
-    content_with_instruction = f"{title}\n内容: {article}\n\n请提取三个关键词，以逗号分隔："
+    content_with_instruction = f"{title}\n内容: {article}\n\n请提取四个关键词，以逗号分隔（关键词除去人工智能）："
     messages = [ChatMessage(role="user", content=content_with_instruction)]
 
     handler = ChunkPrintHandler()
@@ -77,13 +65,13 @@ def generate_keywords(title, article):
 
         if hasattr(response, 'generations') and len(response.generations) > 0:
             keywords = response.generations[0][0].text.strip()
-            return ', '.join(keywords.split(',')[:3])  # 只取前3个关键词
+            return ', '.join(keywords.split(',')[:4])  # 只取前4个关键词
     except Exception as e:
         print(f"生成关键词时发生错误: {e}")
     return ""
 
 def generate_technology(title, article):
-    """生成AI技术，只提取三个AI技术"""
+    """生成AI技术，只提取五个AI技术"""
     spark = ChatSparkLLM(
         spark_api_url=SPARKAI_URL,
         spark_app_id=SPARKAI_APP_ID,
@@ -93,7 +81,7 @@ def generate_technology(title, article):
         streaming=False,
     )
 
-    content_with_instruction = f"{title}\n内容: {article}\n\n请提取三个AI技术，以逗号分隔："
+    content_with_instruction = f"{title}\n内容: {article}\n\n请提取五个AI技术，以逗号分隔（关键词除去人工智能）："
     messages = [ChatMessage(role="user", content=content_with_instruction)]
 
     handler = ChunkPrintHandler()
@@ -102,7 +90,7 @@ def generate_technology(title, article):
 
         if hasattr(response, 'generations') and len(response.generations) > 0:
             ai_technology = response.generations[0][0].text.strip()
-            return ', '.join(ai_technology.split(',')[:3])  # 只取前3个AI技术
+            return ', '.join(ai_technology.split(',')[:5])  # 只取前5个AI技术
     except Exception as e:
         print(f"生成AI技术时发生错误: {e}")
     return ""
@@ -118,7 +106,7 @@ def generate_industry(title, article):
         streaming=False,
     )
 
-    content_with_instruction = f"{title}\n内容: {article}\n\n请提取三个行业，以逗号分隔："
+    content_with_instruction = f"{title}\n内容: {article}\n\n请提取三个行业，以逗号分隔（关键词除去人工智能）："
     messages = [ChatMessage(role="user", content=content_with_instruction)]
 
     handler = ChunkPrintHandler()
@@ -132,8 +120,6 @@ def generate_industry(title, article):
         print(f"生成行业时发生错误: {e}")
     return ""
 
-<<<<<<< Updated upstream
-=======
 def generate_event_summary(title, article):
     """生成重大事件摘要"""
     spark = ChatSparkLLM(
@@ -159,17 +145,12 @@ def generate_event_summary(title, article):
         print(f"生成重大事件摘要时发生错误: {e}")
     return ""
 
->>>>>>> Stashed changes
 def clean_filename(title):
     """清理标题，生成合法的文件名"""
     # 使用正则表达式替换不合法字符
     return re.sub(r'[<>:"/\\|?*]', '', title)[:255]  # 限制文件名长度
 
-<<<<<<< Updated upstream
-def save_summary_to_file(title, url, summary, keywords, ai_technology, industry):
-=======
 def save_summary_to_file(title, url, summary, keywords, ai_technology, industry, event_summary):
->>>>>>> Stashed changes
     """保存标题、链接和AI生成的总结到summary文件夹"""
     # 创建summary文件夹
     if not os.path.exists('summary'):
@@ -182,39 +163,37 @@ def save_summary_to_file(title, url, summary, keywords, ai_technology, industry,
     summary_file_path = os.path.join('summary', f'summary_{safe_title}.txt')
 
     with open(summary_file_path, 'w', encoding='utf-8') as f:
-<<<<<<< Updated upstream
-        f.write(f"标题: {title}\n链接: {url}\n总结: {summary}\n关键词: {keywords}\nAI技术: {ai_technology}\n行业: {industry}\n")
-
-    print(f"总结信息已保存到 {summary_file_path}")
-
-def insert_into_database(connection, title, url, keywords, ai_technology, industry):
-=======
         f.write(f"标题: {title}\n链接: {url}\n总结: {summary}\n关键词: {keywords}\nAI技术: {ai_technology}\n行业: {industry}\n重大事件摘要: {event_summary}\n")
 
     print(f"总结信息已保存到 {summary_file_path}")
 
 def insert_into_database(connection, title, url, keywords, ai_technology, industry, event_summary):
->>>>>>> Stashed changes
     """插入数据到数据库"""
     if connection:
         cursor = connection.cursor()
         try:
             now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # 获取当前时间戳
             cursor.execute("""
-<<<<<<< Updated upstream
-                INSERT INTO articles_summary (title, url, keywords, ai_technology, industry, created_at) 
-                VALUES (%s, %s, %s, %s, %s, %s)
-            """, (title, url, keywords, ai_technology, industry, now))
-=======
-                INSERT INTO articles_summary (title, url, keywords, ai_technology, industry, event_summary, created_at) 
+                INSERT INTO articles_summary (title, url, keywords, ai_technology, industry, event_summary, created_at)
                 VALUES (%s, %s, %s, %s, %s, %s, %s)
             """, (title, url, keywords, ai_technology, industry, event_summary, now))
->>>>>>> Stashed changes
 
             connection.commit()
             print(f"信息已插入到数据库: {title}")
         except Error as e:
             print(f"插入数据库时发生错误: {e}")
+
+def is_unique_url(url, connection):
+    """检查百度链接在数据库中是否唯一"""
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute("SELECT COUNT(*) FROM articles_summary WHERE url = %s", (url,))
+            result = cursor.fetchone()
+            return result[0] == 0  # 0 表示该链接在数据库中是唯一的
+    except Error as e:
+        print(f"数据库错误: {e}")
+    return True  # 默认返回唯一
 
 def main():
     connection = connect_to_db()
@@ -225,22 +204,10 @@ def main():
 
         for article in articles:
             title, content, url = article
-            if is_unique_title(title, connection):
+            if is_unique_url(url, connection):  # 修改这里，判断链接的唯一性
                 # 仅使用前8000个字符
                 truncated_content = content[:8000]
 
-<<<<<<< Updated upstream
-                # 生成关键词、AI技术和行业，发生错误时跳过处理
-                keywords = generate_keywords(title, truncated_content)
-                ai_technology = generate_technology(title, truncated_content)
-                industry = generate_industry(title, truncated_content)
-
-                # 一次性插入数据到数据库
-                insert_into_database(connection, title, url, keywords, ai_technology, industry)
-
-                # 保存总结到文件
-                save_summary_to_file(title, url, content, keywords, ai_technology, industry)
-=======
                 # 生成关键词、AI技术、行业和重大事件摘要，发生错误时跳过处理
                 keywords = generate_keywords(title, truncated_content)
                 ai_technology = generate_technology(title, truncated_content)
@@ -252,10 +219,9 @@ def main():
 
                 # 保存总结到文件
                 save_summary_to_file(title, url, content, keywords, ai_technology, industry, event_summary)
->>>>>>> Stashed changes
 
             else:
-                print(f"标题 {title} 已经存在，跳过处理。")
+                print(f"链接 {url} 已经存在，跳过处理。")
 
         # 关闭数据库连接
         if connection.is_connected():
@@ -263,6 +229,7 @@ def main():
             print("数据库连接已关闭。")
     else:
         print("无法连接到数据库，跳过处理。")
+
 
 if __name__ == '__main__':
     main()
