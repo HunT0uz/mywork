@@ -3,7 +3,11 @@
 <%@ page import="java.sql.*" %>
 <%
   //获取本地direccion IP地址
+<<<<<<< Updated upstream
   String serverIP = "125.216.246.161";
+=======
+  String serverIP = "10.195.127.216";
+>>>>>>> Stashed changes
   session.setAttribute("serverIP", serverIP); // 将服务器IP存入 session
 %>
 <html>
@@ -35,17 +39,27 @@
 <h1>我爱鼠哥</h1>
 <p>hello, world!<p>
 <p><%=serverIP%></p>
+<<<<<<< Updated upstream
 <p><a href="https://www.bilibili.com/video/BV1GJ411x7h7/" class="button">哔哩哔哩</a><p>
 <p><a href="<%= "http://" + serverIP + ":8080/web_war_exploded/test.jsp" %>" class="button">查询</a></p>
 <% if(session.getAttribute("username") == null){ %>
 <p><a href="<%= "http://"+ serverIP + ":8080/web_war_exploded/login.jsp" %>" class="button">登录</a></p>
 <% } %>
+=======
+<% if(session.getAttribute("username") == null){ %>
+<p><a href="<%= "http://"+ serverIP + ":8080/web_war_exploded/login.jsp" %>" class="button">登录</a></p>
+<% } %>
+<p><a href="products.jsp" class="button">查看商品</a></p>
+>>>>>>> Stashed changes
 <% if(session.getAttribute("username")!= null){ %>
 <p><a href="<%= "http://" + serverIP + ":8080/web_war_exploded/userCenter.jsp" %>" class="button">个人中心</a></p>
 <% } %>
 
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
 <div id="joke">
   <%
 

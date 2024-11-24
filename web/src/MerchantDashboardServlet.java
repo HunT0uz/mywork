@@ -57,6 +57,10 @@ public class MerchantDashboardServlet extends HttpServlet {
                 // 添加商品
                 String productName = request.getParameter("productName");
                 String productPrice = request.getParameter("productPrice");
+<<<<<<< Updated upstream
+=======
+                String productType = request.getParameter("productType"); // 获取商品类型
+>>>>>>> Stashed changes
 
                 Part filePart = request.getPart("productImage"); // 获取文件部分
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // 获取文件名
@@ -74,12 +78,22 @@ public class MerchantDashboardServlet extends HttpServlet {
                     Files.copy(fileContent, file.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
                 }
 
+<<<<<<< Updated upstream
                 String insertSql = "INSERT INTO products (name, price, image, merchant_name) VALUES (?, ?, ?, ?)";
                 try (PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
                     pstmt.setString(1, productName);
                     pstmt.setDouble(2, Double.parseDouble(productPrice));
                     pstmt.setString(3,   fileName); // 存储图片路径
                     pstmt.setString(4, username);
+=======
+                String insertSql = "INSERT INTO products (name, price, type, image, merchant_name) VALUES (?, ?, ?, ?, ?)";
+                try (PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
+                    pstmt.setString(1, productName);
+                    pstmt.setDouble(2, Double.parseDouble(productPrice));
+                    pstmt.setString(3, productType); // 插入商品类型
+                    pstmt.setString(4, fileName); // 存储图片路径
+                    pstmt.setString(5, username);
+>>>>>>> Stashed changes
                     pstmt.executeUpdate();
                 }
                 response.sendRedirect("merchantDashboard?action=view"); // 添加成功后重定向

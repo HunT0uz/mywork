@@ -1,3 +1,7 @@
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 <%--
   Created by IntelliJ IDEA.
   User: ROG
@@ -25,21 +29,38 @@
     }
 </style>
     <h1>用户中心</h1>
+<<<<<<< Updated upstream
     <p>欢迎！</p>
     <p><a href="${pageContext.request.contextPath}/logout.jsp" class="button">退出登录</a></p>
     <!--<p><a href="${pageContext.request.contextPath}/updateUser">修改个人信息</a></p>
     <p><a href="${pageContext.request.contextPath}/updatePassword">修改密码</a></p>
     <p><a href="${pageContext.request.contextPath}/order">我的订单</a></p>
+=======
+    <%
+    String username = (String) session.getAttribute("username");
+    %>
+    <p>欢迎！ <%=username%>，您好！</p>
+    <p><a href="${pageContext.request.contextPath}/logout.jsp" class="button">退出登录</a></p>
+    <!--<p><a href="${pageContext.request.contextPath}/updateUser">修改个人信息</a></p>
+    <p><a href="${pageContext.request.contextPath}/updatePassword">修改密码</a></p>
+>>>>>>> Stashed changes
     <p><a href="${pageContext.request.contextPath}/address">收货地址</a></p>
     <p><a href="${pageContext.request.contextPath}/collection">我的收藏</a></p>
     <p><a href="${pageContext.request.contextPath}/comment">我的评价</a></p>
     <p><a href="${pageContext.request.contextPath}/cart">购物车</a></p>
     -->
+<<<<<<< Updated upstream
     <p><a href="${pageContext.request.contextPath}/Snake.jsp" class="button">贪吃蛇</a></p>
     <p><a href="${pageContext.request.contextPath}/tetris.jsp" class="button">俄罗斯方块</a></p>
 
     <!-- 新增商品和购物车按钮 -->
     <p><a href="products.jsp" class="button">查看商品</a></p>
+=======
+    <p><a href="${pageContext.request.contextPath}/game.jsp" class="button">游戏</a></p>
+
+    <!-- 新增商品和购物车按钮 -->
+    <p><a href="${pageContext.request.contextPath}/orderManagement" class="button">我的订单</a></p>
+>>>>>>> Stashed changes
     <p><a href="cart.jsp" class="button">查看购物车</a></p>
     <p><a href="${pageContext.request.contextPath}/index.jsp" class="button">返回首页</a></p>
 </body>
