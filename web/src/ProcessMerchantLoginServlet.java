@@ -42,7 +42,6 @@ public class ProcessMerchantLoginServlet extends HttpServlet {
                 response.getWriter().println("alert('商家登录成功！欢迎您，" + username + "!');");
                 response.getWriter().println("window.location.href='merchantDashboard.jsp';"); // 登录成功后跳转到商家仪表板
                 response.getWriter().println("</script>");
-                session.setAttribute("username", username);
             } else {
 
                 response.getWriter().println("<script type='text/javascript'>");

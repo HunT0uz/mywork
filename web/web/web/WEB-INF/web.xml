@@ -6,11 +6,7 @@
 
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
-<<<<<<< Updated upstream
-        <filter-class>CharacterEncodingFilter</filter-class>
-=======
         <filter-class>CharacterEncodingFilter</filter-class> <!-- 确保包含包名 -->
->>>>>>> Stashed changes
         <init-param>
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
@@ -20,11 +16,7 @@
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern> <!-- 可以根据需要调整路径 -->
-<<<<<<< Updated upstream
-    </filter-mapping>
-=======
     </filter-mapping> <!-- 添加结束标签 -->
->>>>>>> Stashed changes
 
     <context-param>
         <param-name>jdbcUrl</param-name>

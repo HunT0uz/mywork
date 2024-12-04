@@ -1,67 +1,80 @@
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
-<%--
-  Created by IntelliJ IDEA.
-  User: ROG
-  Date: 2024/10/12
-  Time: 下午5:45
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>用户中心</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            color: black; /* 将文字颜色改为黑色 */
+            background-image: url('upload/img/background.jpg'); /* 设置唯一的背景图片 */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain; /* 保持图片完整显示 */
+            background-attachment: fixed; /* 固定背景 */
+            min-height: 100vh; /* 确保容器最小高度为视口高度 */
+            min-width: 100vw; /* 确保容器最小宽度为视口宽度 */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* 内容靠左对齐 */
+            justify-content: flex-start; /* 内容顶部对齐 */
+            overflow: hidden;
+        }
+        h1 {
+            text-align: left; /* 标题靠左对齐 */
+        }
+        p {
+            text-align: left; /* 段落文本靠左对齐 */
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white; /* 按钮文字为白色 */
+            background-color: rgba(0, 128, 0, 0.7); /* 按钮背景颜色为半透明绿色 */
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px 0; /* 添加上下间距 */
+        }
+    </style>
 </head>
 
 <body>
-<style>
-    .button {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 16px;
-        color: white;
-        background-color: green;
-        text-decoration: none;
-        border-radius: 5px;
-    }
-</style>
-    <h1>用户中心</h1>
-<<<<<<< Updated upstream
-    <p>欢迎！</p>
-    <p><a href="${pageContext.request.contextPath}/logout.jsp" class="button">退出登录</a></p>
-    <!--<p><a href="${pageContext.request.contextPath}/updateUser">修改个人信息</a></p>
-    <p><a href="${pageContext.request.contextPath}/updatePassword">修改密码</a></p>
-    <p><a href="${pageContext.request.contextPath}/order">我的订单</a></p>
-=======
-    <%
+<h1>用户中心</h1>
+<%
     String username = (String) session.getAttribute("username");
-    %>
-    <p>欢迎！ <%=username%>，您好！</p>
-    <p><a href="${pageContext.request.contextPath}/logout.jsp" class="button">退出登录</a></p>
-    <!--<p><a href="${pageContext.request.contextPath}/updateUser">修改个人信息</a></p>
-    <p><a href="${pageContext.request.contextPath}/updatePassword">修改密码</a></p>
->>>>>>> Stashed changes
-    <p><a href="${pageContext.request.contextPath}/address">收货地址</a></p>
-    <p><a href="${pageContext.request.contextPath}/collection">我的收藏</a></p>
-    <p><a href="${pageContext.request.contextPath}/comment">我的评价</a></p>
-    <p><a href="${pageContext.request.contextPath}/cart">购物车</a></p>
-    -->
-<<<<<<< Updated upstream
-    <p><a href="${pageContext.request.contextPath}/Snake.jsp" class="button">贪吃蛇</a></p>
-    <p><a href="${pageContext.request.contextPath}/tetris.jsp" class="button">俄罗斯方块</a></p>
+    String merchant = (String) session.getAttribute("merchantUsername");
+%>
+<%if (username != null) {
+%>
+    <p>欢迎！<%= username %>，您好！</p>
+<%
+    }
+%>
+<!-- 判断用户是否为商家，如果是商家，则显示商家中心按钮 -->
+<%
+    if (merchant != null) { // 判定如果 merchant 不为 null，表示是商家
+%>
+<p><a href="${pageContext.request.contextPath}/merchantDashboard.jsp" class="button">商家中心</a></p>
+<%
+    }
+%>
+<p><a href="${pageContext.request.contextPath}/logout.jsp" class="button">退出登录</a></p>
 
-    <!-- 新增商品和购物车按钮 -->
-    <p><a href="products.jsp" class="button">查看商品</a></p>
-=======
-    <p><a href="${pageContext.request.contextPath}/game.jsp" class="button">游戏</a></p>
+<p><a href="${pageContext.request.contextPath}/game.jsp" class="button">游戏</a></p>
 
-    <!-- 新增商品和购物车按钮 -->
+<!-- 判断用户是否为商家，如果不是商家，则显示购物车和订单按钮 -->
+<%
+    if (merchant == null) { // 判定如果 merchant 为 null，表示不是商家
+%>
     <p><a href="${pageContext.request.contextPath}/orderManagement" class="button">我的订单</a></p>
->>>>>>> Stashed changes
     <p><a href="cart.jsp" class="button">查看购物车</a></p>
-    <p><a href="${pageContext.request.contextPath}/index.jsp" class="button">返回首页</a></p>
+<%
+    }
+%>
+<p><a href="${pageContext.request.contextPath}/products.jsp" class="button">查看商品</a></p>
+<p><a href="${pageContext.request.contextPath}/index.jsp" class="button">返回首页</a></p>
 </body>
 </html>
+

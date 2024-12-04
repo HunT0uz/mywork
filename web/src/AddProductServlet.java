@@ -1,10 +1,7 @@
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,8 +19,20 @@ public class AddProductServlet extends HttpServlet {
             throws ServletException, IOException {
         String message = ""; // 用于存储反馈信息
         try {
+            HttpSession session = request.getSession(); // 获取当前会话
+            // 检查是否登录
+            String merchantName = (String) session.getAttribute("merchantUsername");
+            if (merchantName == null) {
+                message = "请先登录。";
+                request.setAttribute("message", message);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/addProduct.jsp");
+                dispatcher.forward(request, response);
+                return; // 确保后续代码不再执行
+            }
+
             String productName = request.getParameter("productName");
             double productPrice = Double.parseDouble(request.getParameter("productPrice"));
+            String productType = request.getParameter("productType");
             // 处理图片上传
             Part filePart = request.getPart("productImage"); // 获取上传的文件部分
             String fileName = filePart.getSubmittedFileName(); // 获取文件名
@@ -50,11 +59,14 @@ public class AddProductServlet extends HttpServlet {
                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                 // 插入商品信息
-                String sql = "INSERT INTO products (name, price,image) VALUES (?, ?, ?)";
+                String sql = "INSERT INTO products (name, price, image, merchant_name, type, description) VALUES (?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                     preparedStatement.setString(1, productName);
                     preparedStatement.setDouble(2, productPrice);
                     preparedStatement.setString(3, fileName); // 添加图片的文件名
+                    preparedStatement.setString(4, merchantName);
+                    preparedStatement.setString(5, productType); // 商品类型为商品
+                    preparedStatement.setString(6, request.getParameter("productDescription")); // 描述信息
                     int rowsAffected = preparedStatement.executeUpdate();
 
                     if (rowsAffected > 0) {

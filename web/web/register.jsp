@@ -59,11 +59,7 @@
     </style>
 </head>
 <body>
-<<<<<<< Updated upstream
-<form action="processRegisterServlet" method="post">
-=======
 <form action="processRegister" method="post">
->>>>>>> Stashed changes
     <h2>注册</h2>
     <label for="username">用户名:</label>
     <input type="text" id="username" name="username" required>

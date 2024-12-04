@@ -4,27 +4,6 @@
 <%
     // 商品价格映射
     HashMap<String, Double> products = new HashMap<>();
-<<<<<<< Updated upstream
-
-    // 数据库连接
-    String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC"; // 数据库 URL
-    String username = "root"; // 数据库用户
-    String password = "1234"; // 数据库密码
-
-    Connection connection = null;
-
-    try {
-        // 加载 JDBC 驱动程序
-        Class.forName("com.mysql.cj.jdbc.Driver");
-
-        // 建立连接
-        connection = DriverManager.getConnection(jdbcUrl, username, password);
-
-        // 查询所有商品的价格
-        String sql = "SELECT name, price FROM products";
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
-=======
     HashMap<String, Integer> productIds = new HashMap<>(); // 用于映射商品名和商品ID
 
     // 数据库连接
@@ -44,24 +23,10 @@
         String sql = "SELECT id, name, price FROM products";
         statement = connection.createStatement();
         resultSet = statement.executeQuery(sql);
->>>>>>> Stashed changes
 
         while (resultSet.next()) {
             String productName = resultSet.getString("name");
             double productPrice = resultSet.getDouble("price");
-<<<<<<< Updated upstream
-            products.put(productName, productPrice);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-    } finally {
-        // 关闭资源
-        if (connection != null) {
-            try {
-                connection.close();
-=======
             int productId = resultSet.getInt("id");  // 获取商品ID
             products.put(productName, productPrice);
             productIds.put(productName, productId);  // 记录商品名称与ID的映射
@@ -79,7 +44,6 @@
         if (statement != null) {
             try {
                 statement.close();
->>>>>>> Stashed changes
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -88,20 +52,12 @@
 
     // 获取购物车商品
     List<String> cart = (List<String>) session.getAttribute("cart");
-<<<<<<< Updated upstream
-=======
     String usernameFromSession = (String) session.getAttribute("username");
 
->>>>>>> Stashed changes
     if (cart == null) {
         cart = new ArrayList<>();
     }
 
-<<<<<<< Updated upstream
-    double totalAmount = 0; // 总金额
-    for (String item : cart) {
-        totalAmount += products.getOrDefault(item, 0.0); // 使用默认值处理商品未找到的情况
-=======
     double totalAmount = 0;
     for (String item : cart) {
         totalAmount += products.getOrDefault(item, 0.0);
@@ -200,7 +156,6 @@
         }
     } else {
         System.out.println("未接收到确认结算请求");
->>>>>>> Stashed changes
     }
 %>
 <html>
@@ -227,15 +182,11 @@
     %>
 </ul>
 <h3>总金额: ￥<%= totalAmount %></h3>
-<<<<<<< Updated upstream
-<button onclick="alert('结算功能待开发！')">确认结算</button>
-=======
 
 <form id="checkoutForm" method="post">
     <input type="hidden" name="confirm" value="true"/>
     <button type="submit">确认结算</button>
 </form>
->>>>>>> Stashed changes
 <%
     }
 %>

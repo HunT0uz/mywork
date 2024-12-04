@@ -5,15 +5,6 @@
 <%@ page import="java.util.HashMap" %>
 <%
     // 数据库连接信息
-<<<<<<< Updated upstream
-    String jdbcUrl = session.getServletContext().getInitParameter("jdbcUrl"); // 数据库 URL
-    String username = "root"; // 数据库用户
-    String password = "1234"; // 数据库密码
-
-    List<String> cart = (List<String>) session.getAttribute("cart");
-    if (cart == null) {
-        cart = new ArrayList<>();
-=======
     String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC"; // 数据库 URL
     String username = "root"; // 数据库用户
     String password = "1234"; // 数据库密码
@@ -24,17 +15,13 @@
 
     if (cart == null) {
         cart = new ArrayList<>(); // 初始化购物车
->>>>>>> Stashed changes
     }
 
     double totalAmount = 0.0; // 总金额
     Connection connection = null;
     HashMap<String, Integer> productCountMap = new HashMap<>(); // 用于记录商品数量
-<<<<<<< Updated upstream
-=======
     HashMap<String, Double> productPriceMap = new HashMap<>(); // 用于记录商品价格
     HashMap<String, String> productImageMap = new HashMap<>(); // 用于记录商品图片URL
->>>>>>> Stashed changes
 
     // 统计每个商品的数量
     for (String product : cart) {
@@ -48,40 +35,6 @@
         // 建立连接
         connection = DriverManager.getConnection(jdbcUrl, username, password);
 
-<<<<<<< Updated upstream
-        // 查询购物车中每个商品的价格
-        String sql = "SELECT name, price FROM products WHERE name IN (";
-
-        // 拼接查询条件
-        for (int i = 0; i < productCountMap.size(); i++) {
-            sql += "?";
-            if (i < productCountMap.size() - 1) {
-                sql += ",";
-            }
-        }
-        sql += ")";
-
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-
-        // 设置查询参数
-        int index = 1; // 用于为每个商品设置查询参数
-        for (String item : productCountMap.keySet()) {
-            preparedStatement.setString(index++, item);
-        }
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        // 计算总金额
-        while (resultSet.next()) {
-            String productName = resultSet.getString("name");
-            double productPrice = resultSet.getDouble("price");
-            int quantity = productCountMap.get(productName); // 获取该商品的数量
-            totalAmount += productPrice * quantity; // 累加总金额
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } catch (ClassNotFoundException e) {
-=======
         // 查询购物车中每个商品的价格和图片
         String sql = "SELECT name, price, image FROM products WHERE name IN (";
 
@@ -133,7 +86,6 @@
         e.printStackTrace();
     } catch (ClassNotFoundException e) {
         out.println("<p style='color: red;'>找不到JDBC驱动: " + e.getMessage() + "</p>");
->>>>>>> Stashed changes
         e.printStackTrace();
     } finally {
         // 关闭资源
@@ -141,25 +93,17 @@
             try {
                 connection.close();
             } catch (SQLException e) {
-<<<<<<< Updated upstream
-=======
                 out.println("<p style='color: red;'>关闭数据库连接失败: " + e.getMessage() + "</p>");
->>>>>>> Stashed changes
                 e.printStackTrace();
             }
         }
     }
 %>
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 <html>
 <head>
     <meta charset="UTF-8">
     <title>购物车</title>
-<<<<<<< Updated upstream
-=======
     <style>
         .button {
             padding: 10px 15px;
@@ -173,7 +117,6 @@
             background-color: #218838;
         }
     </style>
->>>>>>> Stashed changes
 </head>
 <body>
 <h1>购物车</h1>
@@ -186,18 +129,6 @@
     <a href="products.jsp" class="button">返回商品列表</a> <!-- 添加返回商品列表的链接 -->
 </h2>
 <%
-<<<<<<< Updated upstream
-} else {
-%>
-<ul>
-    <%
-        // 根据商品数量展示商品
-        for (String item : productCountMap.keySet()) {
-            int quantity = productCountMap.get(item); // 获取商品数量
-    %>
-    <li>
-        <%= item %> - 数量: <%= quantity %>
-=======
     } else {
 %>
 <ul>
@@ -215,22 +146,14 @@
         <%= item %> - 数量: <%= quantity %>
         - 单价: ￥<%= itemPrice %> <!-- 单价展示 -->
         - 总价: ￥<%= itemPrice * quantity %> <!-- 总价展示 -->
->>>>>>> Stashed changes
         <form action="removeFromCart" method="post" style="display:inline;">
             <input type="hidden" name="productNameToRemove" value="<%= item %>">
             <button type="submit" class="button" style="background-color: red;">删除</button> <!-- 删除按钮 -->
         </form>
-<<<<<<< Updated upstream
-    </li> <!-- 显示商品名称及数量 -->
-    <%
-        }
-    %>
-=======
     </li>
 <%
     }
 %>
->>>>>>> Stashed changes
 </ul>
 <h3>总金额: ￥<%= totalAmount %></h3>
 <h2>
@@ -239,11 +162,7 @@
     <a href="checkout.jsp" class="button">去结算</a> <!-- 跳转到结算页面 -->
 </h2>
 <form action="clearCart.jsp" method="post">
-<<<<<<< Updated upstream
-    <button type="submit">清空购物车</button> <!-- 清空购物车按钮 -->
-=======
     <button type="submit" class="button">清空购物车</button> <!-- 清空购物车按钮 -->
->>>>>>> Stashed changes
 </form>
 <%
     }

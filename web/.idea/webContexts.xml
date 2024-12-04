@@ -3,15 +3,13 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
-<<<<<<< Updated upstream
-        <entry key="file://$PROJECT_DIR$/web/index.jsp" value="file://$PROJECT_DIR$/web" />
-=======
         <entry key="file://$PROJECT_DIR$/web/checkout.jsp" value="file://$PROJECT_DIR$/web" />
         <entry key="file://$PROJECT_DIR$/web/index.jsp" value="file://$PROJECT_DIR$/web" />
+        <entry key="file://$PROJECT_DIR$/web/merchantOrderManagement.jsp" value="file://$PROJECT_DIR$/web" />
         <entry key="file://$PROJECT_DIR$/web/orderManagement.jsp" value="file://$PROJECT_DIR$/web" />
->>>>>>> Stashed changes
         <entry key="file://$PROJECT_DIR$/web/test.jsp" value="file://$PROJECT_DIR$/web" />
         <entry key="file://$PROJECT_DIR$/web/tetris.jsp" value="file://$PROJECT_DIR$/web" />
+        <entry key="file://$PROJECT_DIR$/web/updateProduct.jsp" value="file://$PROJECT_DIR$/web" />
       </map>
     </option>
   </component>

@@ -1,15 +1,104 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="javax.servlet.http.HttpSession" %>
-<<<<<<< Updated upstream
-=======
-<%@ page import="javax.servlet.ServletException" %>
-<%@ page import="javax.servlet.annotation.MultipartConfig" %>
-<%@ page import="javax.servlet.http.Part" %>
->>>>>>> Stashed changes
 <html>
 <head>
     <title>商家仪表板</title>
+    <style>
+        body {
+            position: relative; /* 设置相对定位以便使用伪元素 */
+            margin: 0;
+            color: white; /* 默认文字颜色设置为白色 */
+            min-height: 100vh; /* 最小高度为100%视口高度 */
+            display: flex; /* 使用 flex 布局 */
+            flex-direction: column; /* 垂直排列 */
+            align-items: center; /* 子元素水平居中 */
+            overflow-y: hidden;
+        }
+
+        body::before {
+            content: ""; /* 伪元素内容为空 */
+            position: absolute; /* 绝对定位 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('upload/img/merchant_bg.jpg'); /* 替换为你的背景图片路径 */
+            background-size: cover; /* 背景图片覆盖 */
+            background-position: center; /* 背景图片居中 */
+            filter: blur(8px); /* 设置背景虚化效果 */
+            z-index: -1; /* 设置较低层级 */
+            background-color: rgba(0, 0, 0, 0.5); /* 添加黑色覆盖层 */
+            overflow: hidden; /* 隐藏滚动条 */
+        }
+
+        .content {
+            position: relative; /* 设置内容层相对定位 */
+            z-index: 1; /* 确保内容层在背景之上 */
+            max-height: 80vh; /* 设置最大高度为 80% 视口高度 */
+            overflow-y: auto; /* 内容溢出时显示垂直滚动条 */
+            padding: 20px; /* 添加内边距 */
+            width: 100%; /* 设定为100%宽度 */
+            display: flex; /* 使用 flex 布局 */
+            justify-content: center; /* 水平居中 */
+        }
+
+        .sidebar {
+            width: 250px; /* 增加菜单宽度 */
+            margin-right: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            float: left; /* 菜单浮动到左侧 */
+            color: black; /* 设置菜单文字颜色为黑色 */
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            color: black; /* 设置标题颜色为白色 */
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 8px;
+            margin: 4px 0;
+            text-decoration: none;
+            color: black; /* 设置链接颜色为白色 */
+            background-color: #f9f9f9; /* 按钮背景颜色 */
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .sidebar a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .button {
+            color: black; /* 按钮颜色设置为黑色 */
+        }
+
+        .product-list {
+            height: 600px; /* 固定高度，表示商品展示区域 */
+            overflow-y: auto; /* 允许垂直滚动 */
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 800px; /* 设置商品展示区域宽度 */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+        }
+
+        img {
+            max-width: 100px; /* 设置图片最大宽度 */
+            max-height: 100px; /* 设置图片最大高度 */
+        }
+
+        table {
+            width: 100%; /* 表格宽度占满整个商品展示区域 */
+            border-collapse: collapse; /* 合并边框 */
+        }
+
+        th, td {
+            padding: 10px; /* 增加单元格内边距 */
+            text-align: center; /* 使文字居中 */
+        }
+    </style>
 </head>
 <body>
 
@@ -17,201 +106,66 @@
     session = request.getSession();
     String merchantUsername = (String) session.getAttribute("merchantUsername");
     if (merchantUsername == null) {
-        // 如果商家用户名为 null，重定向到登录页面
         response.sendRedirect("merchantLogin.jsp");
-        return; // 终止后续代码执行
+        return;
     }
 %>
 
 <h2>欢迎，<%= merchantUsername %>!</h2>
 
-<h3>商品管理</h3>
+<div class="content">
+    <div class="sidebar">
+        <h3>功能菜单</h3>
+        <a href="addProduct.jsp">添加商品</a>
+        <a href="updateProduct.jsp">编辑商品</a>
+        <a href="merchantOrderManagement">商品订单</a>
+        <a href="products.jsp" class="button">返回商品列表</a>
+    </div>
 
-<!-- 添加商品表单 -->
-<form action="merchantDashboard" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="action" value="add">
-    <label for="productName">商品名称:</label>
-    <input type="text" id="productName" name="productName" required>
+    <!-- 商品列表 -->
+    <div class="product-list">
+        <h3>现有商品</h3>
+        <table border="1">
+            <tr>
+                <th>商品ID</th>
+                <th>商品名称</th>
+                <th>商品价格</th>
+                <th>商品类型</th>
+                <th>商品图片</th>
+            </tr>
+            <%
+                Connection conn = null;
+                try {
+                    String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
+                    conn = DriverManager.getConnection(jdbcUrl, "root", "1234");
+                    String sql = "SELECT * FROM products WHERE merchant_name = ?";
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    pstmt.setString(1, merchantUsername);
+                    ResultSet rs = pstmt.executeQuery();
+                    while(rs.next()) {
+            %>
+            <tr>
+                <td><%= rs.getInt("id") %></td>
+                <td><%= rs.getString("name") %></td>
+                <td><%= rs.getDouble("price") %></td>
+                <td><%= rs.getString("type") %></td>
+                <td><img src="<%= request.getContextPath() %>/upload/img/<%= rs.getString("image") %>" alt="商品图片"></td>
+            </tr>
+            <%
+                    }
+                    rs.close();
+                    pstmt.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if(conn != null) {
+                        try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+                    }
+                }
+            %>
+        </table>
+    </div>
+</div>
 
-    <label for="productPrice">商品价格:</label>
-    <input type="text" id="productPrice" name="productPrice" required>
-<<<<<<< Updated upstream
-=======
-
-    <label for="productType">商品类型:</label>
-    <select id="productType" name="productType" required>
-        <option value="">请选择商品类型</option>
-        <optgroup label="电子产品">
-            <option value="手机与通讯">手机与通讯</option>
-            <option value="电脑与办公">电脑与办公</option>
-            <option value="相机与摄影">相机与摄影</option>
-            <option value="影音娱乐">影音娱乐</option>
-            <option value="智能穿戴">智能穿戴</option>
-            <option value="游戏与电竞">游戏与电竞</option>
-        </optgroup>
-        <optgroup label="服装鞋帽">
-            <option value="男装">男装</option>
-            <option value="女装">女装</option>
-            <option value="童装">童装</option>
-            <option value="内衣">内衣</option>
-            <option value="鞋靴">鞋靴</option>
-            <option value="箱包">箱包</option>
-        </optgroup>
-        <optgroup label="家居生活">
-            <option value="家具">家具</option>
-            <option value="家纺">家纺</option>
-            <option value="家装建材">家装建材</option>
-            <option value="厨房用具">厨房用具</option>
-            <option value="清洁用品">清洁用品</option>
-            <option value="宠物用品">宠物用品</option>
-            <option value="美妆个护">美妆个护</option>
-        </optgroup>
-        <optgroup label="食品饮料">
-            <option value="休闲零食">休闲零食</option>
-            <option value="粮油调味">粮油调味</option>
-            <option value="饮料冲调">饮料冲调</option>
-            <option value="乳品烘焙">乳品烘焙</option>
-            <option value="酒类">酒类</option>
-            <option value="保健食品">保健食品</option>
-            <option value="母婴用品">母婴用品</option>
-        </optgroup>
-        <optgroup label="图书音像">
-            <option value="图书">图书</option>
-            <option value="电子书">电子书</option>
-            <option value="音像制品">音像制品</option>
-            <option value="教育软件">教育软件</option>
-        </optgroup>
-        <optgroup label="运动户外">
-            <option value="运动服饰">运动服饰</option>
-            <option value="运动装备">运动装备</option>
-            <option value="健身器材">健身器材</option>
-            <option value="户外装备">户外装备</option>
-            <option value="自行车与骑行">自行车与骑行</option>
-            <option value="垂钓用品">垂钓用品</option>
-            <option value="汽车用品">汽车用品</option>
-        </optgroup>
-        <optgroup label="汽车服务">
-            <option value="汽车装饰">汽车装饰</option>
-            <option value="车载电器">车载电器</option>
-            <option value="维修保养">维修保养</option>
-            <option value="汽车配件">汽车配件</option>
-            <option value="汽车服务">汽车服务</option>
-        </optgroup>
-        <optgroup label="珠宝配饰">
-            <option value="珠宝首饰">珠宝首饰</option>
-            <option value="手表">手表</option>
-            <option value="眼镜">眼镜</option>
-            <option value="帽子围巾">帽子围巾</option>
-            <option value="腰带">腰带</option>
-        </optgroup>
-        <optgroup label="玩具乐器">
-            <option value="儿童玩具">儿童玩具</option>
-            <option value="模型玩具">模型玩具</option>
-            <option value="乐器">乐器</option>
-        </optgroup>
-        <optgroup label="医疗保健">
-            <option value="医疗器械">医疗器械</option>
-            <option value="中西药品">中西药品</option>
-            <option value="保健滋补品">保健滋补品</option>
-        </optgroup>
-        <optgroup label="旅行度假">
-            <option value="旅行装备">旅行装备</option>
-            <option value="酒店预订">酒店预订</option>
-            <option value="景点门票">景点门票</option>
-            <option value="旅游服务">旅游服务</option>
-        </optgroup>
-    </select><br><br>
-
-    <label for="productImage">上传商品图片:</label>
->>>>>>> Stashed changes
-    <input type="file" id="productImage" name="productImage" accept="image/*" onchange="showFileName(this)" required><br>
-    <img id="showimg" src="" alt="上传的图片"><br>
-    <button type="submit">添加商品</button>
-</form>
-
-<!-- 上传图片表单 -->
-<script>
-    function showFileName(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var img = document.getElementById('showimg');
-                img.src = e.target.result;
-                img.style.width = '100px'; // 设置图片预览大小
-                img.style.height = '100px';
-            };
-            reader.readAsDataURL(input.files[0]); // 读取文件并生成预览
-
-            document.getElementById('showimg').src = "";
-        }
-    }
-</script>
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
-<!-- 商品列表 -->
-<h3>现有商品</h3>
-<table border="1">
-    <tr>
-        <th>商品ID</th>
-        <th>商品名称</th>
-        <th>商品价格</th>
-<<<<<<< Updated upstream
-=======
-        <th>商品类型</th>
->>>>>>> Stashed changes
-        <th>操作</th>
-    </tr>
-    <%
-        Connection conn = null;
-        try {
-            String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC"; // 确保数据库为 marchat
-            conn = DriverManager.getConnection(jdbcUrl, "root", "1234");
-            String sql = "SELECT * FROM products WHERE merchant_name = ?"; // SQL 查询使用 merchant_username
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, merchantUsername); // 使用 session 中的商家名
-            ResultSet rs = pstmt.executeQuery();
-            while(rs.next()) {
-    %>
-    <tr>
-        <td><%= rs.getInt("id") %></td>
-        <td><%= rs.getString("name") %></td>
-        <td><%= rs.getDouble("price") %></td>
-<<<<<<< Updated upstream
-=======
-        <td><%= rs.getString("type") %></td>
->>>>>>> Stashed changes
-        <td>
-            <form action="merchantDashboard" method="get" style="display:inline;">
-                <input type="hidden" name="action" value="delete">
-                <input type="hidden" name="productId" value="<%= rs.getInt("id") %>">
-                <input type="submit" value="删除">
-            </form>
-            <form action="merchantDashboard" method="get" style="display:inline;">
-                <input type="hidden" name="action" value="update">
-                <input type="hidden" name="productId" value="<%= rs.getInt("id") %>">
-                <label for="productName">新名称:</label>
-                <input type="text" name="productName" required>
-                <label for="productPrice">新价格:</label>
-                <input type="text" name="productPrice" required>
-                <input type="submit" value="更新">
-            </form>
-        </td>
-    </tr>
-    <%
-            }
-            rs.close();
-            pstmt.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if(conn != null) {
-                try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
-            }
-        }
-    %>
-</table>
-<h2><a href="products.jsp" class="button">返回商品列表</a></h2>
 </body>
 </html>

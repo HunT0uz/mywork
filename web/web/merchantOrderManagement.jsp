@@ -1,4 +1,4 @@
-<%@ page import="com.example.OrderManagementServlet" %>
+<%@ page import="com.example.MerchantOrderManagementServlet" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
@@ -42,11 +42,7 @@
     <script>
         function toggleOrderDetails(orderId) {
             var details = document.getElementById("details-" + orderId);
-            if (details.style.display === "none") {
-                details.style.display = "block"; // 显示
-            } else {
-                details.style.display = "none"; // 隐藏
-            }
+            details.style.display = (details.style.display === "none") ? "block" : "none"; // 切换显示状态
         }
     </script>
 </head>
@@ -56,27 +52,27 @@
     <%
         // 获取错误信息和订单列表
         String errorMessage = (String) request.getAttribute("errorMessage");
-        List<OrderManagementServlet.Order> orderList = (List<OrderManagementServlet.Order>) request.getAttribute("orderList");
+        List<MerchantOrderManagementServlet.Order> orderList = (List<MerchantOrderManagementServlet.Order>) request.getAttribute("orderList");
 
         // 合并订单
-        Map<String, List<OrderManagementServlet.Order>> mergedOrders = new HashMap<>();
+        Map<String, List<MerchantOrderManagementServlet.Order>> mergedOrders = new HashMap<>();
 
         if (orderList != null) {
             // 将订单合并
-            for (OrderManagementServlet.Order order : orderList) {
+            for (MerchantOrderManagementServlet.Order order : orderList) {
                 String orderNumber = order.getOrderNumber();
                 mergedOrders.computeIfAbsent(orderNumber, k -> new ArrayList<>()).add(order);
             }
         }
 
         // 将合并后的订单按照时间由新到旧排序
-        List<Map.Entry<String, List<OrderManagementServlet.Order>>> sortedOrders = new ArrayList<>(mergedOrders.entrySet());
-        sortedOrders.sort(new Comparator<Map.Entry<String, List<OrderManagementServlet.Order>>>() {
+        List<Map.Entry<String, List<MerchantOrderManagementServlet.Order>>> sortedOrders = new ArrayList<>(mergedOrders.entrySet());
+        sortedOrders.sort(new Comparator<Map.Entry<String, List<MerchantOrderManagementServlet.Order>>>() {
             @Override
-            public int compare(Map.Entry<String, List<OrderManagementServlet.Order>> entry1, Map.Entry<String, List<OrderManagementServlet.Order>> entry2) {
+            public int compare(Map.Entry<String, List<MerchantOrderManagementServlet.Order>> entry1, Map.Entry<String, List<MerchantOrderManagementServlet.Order>> entry2) {
                 // 获取第一个订单的创建时间进行比较，按时间降序排列（新到旧）
-                OrderManagementServlet.Order firstOrder1 = entry1.getValue().get(0);
-                OrderManagementServlet.Order firstOrder2 = entry2.getValue().get(0);
+                MerchantOrderManagementServlet.Order firstOrder1 = entry1.getValue().get(0);
+                MerchantOrderManagementServlet.Order firstOrder2 = entry2.getValue().get(0);
                 return firstOrder2.getCreatedAt().compareTo(firstOrder1.getCreatedAt()); // 反转比较顺序
             }
         });
@@ -99,11 +95,10 @@
             </thead>
             <tbody>
                 <%
-                for (Map.Entry<String, List<OrderManagementServlet.Order>> entry : sortedOrders) {
+                for (Map.Entry<String, List<MerchantOrderManagementServlet.Order>> entry : sortedOrders) {
                     String orderNumber = entry.getKey();
-                    List<OrderManagementServlet.Order> orders = entry.getValue();
-                    OrderManagementServlet.Order firstOrder = orders.get(0); // 获取第一个订单的信息
-
+                    List<MerchantOrderManagementServlet.Order> orders = entry.getValue();
+                    MerchantOrderManagementServlet.Order firstOrder = orders.get(0); // 获取第一个订单的信息
                 %>
                     <tr class="order-row" onclick="toggleOrderDetails('<%= orderNumber %>')">
                         <td><%= orderNumber %></td>
@@ -123,7 +118,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% for (OrderManagementServlet.Order order : orders) { %>
+                                    <% for (MerchantOrderManagementServlet.Order order : orders) { %>
                                         <tr>
                                             <td><%= order.getProductId() %></td>
                                             <td><%= order.getQuantity() %></td>
@@ -143,10 +138,8 @@
         </table>
     <% } else { %>
         <p>暂无订单记录。</p>
-        <p>您可以<a href="products.jsp">继续购物</a>，或<a href="userCenter.jsp">返回首页</a>。</p>
+        <p>您可以<a href="products.jsp">查看商品</a>，或<a href="index.jsp">返回首页</a>。</p>
     <% } %>
 
-    <p><a href="userCenter.jsp">返回用户中心</a></p>
-    <p><a href="products.jsp">继续购物</a></p>
 </body>
 </html>
