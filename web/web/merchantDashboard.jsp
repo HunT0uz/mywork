@@ -5,55 +5,55 @@
     <title>商家仪表板</title>
     <style>
         body {
-            position: relative; /* 设置相对定位以便使用伪元素 */
+            position: relative;
             margin: 0;
-            color: white; /* 默认文字颜色设置为白色 */
-            min-height: 100vh; /* 最小高度为100%视口高度 */
-            display: flex; /* 使用 flex 布局 */
-            flex-direction: column; /* 垂直排列 */
-            align-items: center; /* 子元素水平居中 */
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             overflow-y: hidden;
         }
 
         body::before {
-            content: ""; /* 伪元素内容为空 */
-            position: absolute; /* 绝对定位 */
+            background-image: url('upload/img/merchant_bg.jpg');
+            content: "";
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('upload/img/merchant_bg.jpg'); /* 替换为你的背景图片路径 */
-            background-size: cover; /* 背景图片覆盖 */
-            background-position: center; /* 背景图片居中 */
-            filter: blur(8px); /* 设置背景虚化效果 */
-            z-index: -1; /* 设置较低层级 */
-            background-color: rgba(0, 0, 0, 0.5); /* 添加黑色覆盖层 */
-            overflow: hidden; /* 隐藏滚动条 */
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            z-index: -1;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: hidden;
         }
 
         .content {
-            position: relative; /* 设置内容层相对定位 */
-            z-index: 1; /* 确保内容层在背景之上 */
-            max-height: 80vh; /* 设置最大高度为 80% 视口高度 */
-            overflow-y: auto; /* 内容溢出时显示垂直滚动条 */
-            padding: 20px; /* 添加内边距 */
-            width: 100%; /* 设定为100%宽度 */
-            display: flex; /* 使用 flex 布局 */
-            justify-content: center; /* 水平居中 */
+            position: relative;
+            z-index: 1;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .sidebar {
-            width: 250px; /* 增加菜单宽度 */
+            width: 250px;
             margin-right: 20px;
             border: 1px solid #ccc;
             padding: 10px;
-            float: left; /* 菜单浮动到左侧 */
-            color: black; /* 设置菜单文字颜色为黑色 */
+            float: left;
+            color: black;
         }
 
         .sidebar h3 {
             margin-top: 0;
-            color: black; /* 设置标题颜色为白色 */
+            color: black;
         }
 
         .sidebar a {
@@ -61,8 +61,8 @@
             padding: 8px;
             margin: 4px 0;
             text-decoration: none;
-            color: black; /* 设置链接颜色为白色 */
-            background-color: #f9f9f9; /* 按钮背景颜色 */
+            color: black;
+            background-color: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
@@ -72,31 +72,31 @@
         }
 
         .button {
-            color: black; /* 按钮颜色设置为黑色 */
+            color: black;
         }
 
         .product-list {
-            height: 600px; /* 固定高度，表示商品展示区域 */
-            overflow-y: auto; /* 允许垂直滚动 */
+            height: 600px;
+            overflow-y: auto;
             border: 1px solid #ccc;
             padding: 10px;
-            width: 800px; /* 设置商品展示区域宽度 */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+            width: 800px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         img {
-            max-width: 100px; /* 设置图片最大宽度 */
-            max-height: 100px; /* 设置图片最大高度 */
+            max-width: 100px;
+            max-height: 100px;
         }
 
         table {
-            width: 100%; /* 表格宽度占满整个商品展示区域 */
-            border-collapse: collapse; /* 合并边框 */
+            width: 100%;
+            border-collapse: collapse;
         }
 
         th, td {
-            padding: 10px; /* 增加单元格内边距 */
-            text-align: center; /* 使文字居中 */
+            padding: 10px;
+            text-align: center;
         }
     </style>
 </head>
@@ -119,6 +119,7 @@
         <a href="addProduct.jsp">添加商品</a>
         <a href="updateProduct.jsp">编辑商品</a>
         <a href="merchantOrderManagement">商品订单</a>
+        <a href="UserManagementServlet">用户管理</a>
         <a href="products.jsp" class="button">返回商品列表</a>
     </div>
 
@@ -149,7 +150,11 @@
                 <td><%= rs.getString("name") %></td>
                 <td><%= rs.getDouble("price") %></td>
                 <td><%= rs.getString("type") %></td>
-                <td><img src="<%= request.getContextPath() %>/upload/img/<%= rs.getString("image") %>" alt="商品图片"></td>
+                <td>
+                    <a href="productDetail.jsp?id=<%= rs.getInt("id") %>">
+                        <img src="<%= request.getContextPath() %>/upload/img/<%= rs.getString("image") %>" alt="商品图片">
+                    </a>
+                </td>
             </tr>
             <%
                     }

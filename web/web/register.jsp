@@ -39,11 +39,11 @@
             display: block;
             margin-bottom: 5px;
         }
-        input[type="text"], input[type="password"] ,input[type="password"] {
+        input[type="text"], input[type="password"], input[type="email"] {  /* 修改此行以支持邮箱 */
             width: 100%;
             padding: 10px;
             margin: 5px 0 10px;
-            boarder-radius: 4px;
+            border-radius: 4px; /* 修正拼写错误 boarder-radius -> border-radius */
         }
         input[type="submit"] {
             background-color: #4CAF50;
@@ -67,6 +67,8 @@
     <input type="password" id="password" name="password" required>
     <label for="confirmPassword">确认密码:</label>
     <input type="password" id="confirmPassword" name="confirmPassword" required>
+    <label for="email">邮箱:</label> <!-- 添加邮箱标签 -->
+    <input type="email" id="email" name="email" required> <!-- 添加邮箱输入框 -->
 
     <input type="submit" value="注册">
 </form>

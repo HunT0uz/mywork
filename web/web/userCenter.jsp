@@ -68,6 +68,7 @@
 <%
     if (merchant == null) { // 判定如果 merchant 为 null，表示不是商家
 %>
+    <p><a href="${pageContext.request.contextPath}/updateUser.jsp" class="button">修改个人信息</a></p>
     <p><a href="${pageContext.request.contextPath}/orderManagement" class="button">我的订单</a></p>
     <p><a href="cart.jsp" class="button">查看购物车</a></p>
 <%

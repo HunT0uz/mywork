@@ -1,156 +1,280 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ROG
-  Date: 2024/11/25
-  Time: 下午2:54
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.servlet.*" %>
 <%@ page import="javax.servlet.http.*" %>
+<%@ page import="java.net.URLEncoder" %>
 <html>
 <head>
     <title>修改商品</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f8f9fa;
+            position: relative;
+            margin: 0;
+            color: black;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.85); /* 缩放页面为80% */
+            transform-origin: top left; /* 从左上角进行缩放 */
+            width: 125%; /* 为了补偿缩放后造成的宽度损失 */
         }
+
+        body::before {
+            background-image: url('upload/img/updateProduct_bg.jpg');
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-position: top;
+            filter: blur(2px);
+            z-index: -1;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
         h3 {
             color: #343a40;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
+
         th, td {
             padding: 12px;
             text-align: left;
             border: 1px solid #dee2e6;
         }
+
         th {
-            background-color: #6c757d;
+            background-color: rgba(108, 117, 125, 0.7);
             color: white;
         }
+
         tr:hover {
             background-color: #f1f1f1;
         }
+
         .form-inline {
             display: flex;
             align-items: center;
             gap: 10px;
+            margin-bottom: 20px; /* 添加底部间距 */
         }
+
         .preview {
             max-width: 200px;
             height: auto;
             margin-top: 10px;
         }
+
         .scrollable-table {
             max-height: 600px;
             overflow-y: auto;
             display: block;
         }
+
+        .form-inline input[type="text"] {
+            width: 200px;
+        }
+
+        table img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-right: 10px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+         textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            resize: none; /* 禁止用户调整文本框大小 */
+            overflow: auto; /* 添加滚动条 */
+            font-size: 16px;
+            line-height: 1.5;
+            box-sizing: border-box;
+            max-height: 100px; /* 设置最大高度，以保持原本固定的大小 */
+        }
+
         /* 模态框样式 */
-        .modal {
+        #editProductModal, #deleteProductModal, #updateImageModal {
             display: none;
             position: fixed;
-            z-index: 1;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8);
-            padding-top: 60px;
+            background-color: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
         }
+
         .modal-content {
-            background-color: #ffffff;
-            margin: 5% auto;
+            background: white;
             padding: 20px;
-            border-radius: 8px; /* 圆角 */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 阴影效果 */
-            width: 80%;
-            max-width: 500px; /* 最大宽度 */
+            border-radius: 8px;
+            width: 400px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-height: 460px;
+            overflow-y: hidden;
         }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
+
+        .modal-header {
+            margin-bottom: 15px;
+        }
+
+        .modal-header h4 {
+            margin: 0;
+            color: #343a40;
+        }
+
+        label {
             font-weight: bold;
         }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
+
+        input[type="text"], select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
-        label {
-            display: block;
-            margin-top: 10px; /* 标签上间距 */
-        }
-        input[type="text"], input[type="file"], select {
-            width: calc(100% - 20px); /* 计算输入框宽度 */
-            padding: 10px; /* 输入框内边距 */
-            border: 1px solid #ccc;
-            border-radius: 4px; /* 圆角边框 */
-        }
-        input[type="submit"] {
-            background-color: #28a745; /* 提交按钮颜色 */
+
+
+        input[type="button"], input[type="submit"] {
+            background-color: #007bff;
             color: white;
-            padding: 10px 15px;
             border: none;
+            padding: 10px 15px;
             border-radius: 4px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-right: 10px;
+            transition: background 0.3s;
         }
-        input[type="submit"]:hover {
-            background-color: #218838; /* 提交按钮悬停颜色 */
+
+        input[type="button"]:hover, input[type="submit"]:hover {
+            background-color: #0056b3;
         }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+
     </style>
+
     <script>
-        function openModal(productId, name, price, type, image, description) {
-            document.getElementById("modal").style.display = "block";
-            document.getElementById("modalProductId").value = productId;
-            document.getElementById("modalProductName").value = name;
-            document.getElementById("modalProductPrice").value = price;
-            document.getElementById("modalProductType").value = type;
-            document.getElementById("modalProductDescription").value = description; // 设置简介
-            document.getElementById("modalImagePreview").src = image ? '/upload/img/' + image : '/upload/img/no-image.png';
-        }
-
-        function closeModal() {
-            document.getElementById("modal").style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            var modal = document.getElementById("modal");
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-
         function previewImage(input) {
-            const preview = document.getElementById("modalImagePreview");
+            const preview = document.getElementById('imagePreview');
             const file = input.files[0];
             const reader = new FileReader();
 
             reader.onload = function(e) {
                 preview.src = e.target.result;
+                preview.style.display = "block"; // 显示图片
             }
 
             if (file) {
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(file); // 读取文件为 Data URL
             } else {
                 preview.src = "";
+                preview.style.display = "none"; // 隐藏图片
             }
         }
+
+        function openEditModal(productId, productName, productPrice, productType) {
+            document.getElementById('modalProductId').value = productId;
+            document.getElementById('modalProductName').value = productName;
+            document.getElementById('modalProductPrice').value = productPrice;
+            document.getElementById('modalProductType').value = productType;
+            document.getElementById('editProductModal').style.display = 'flex';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editProductModal').style.display = 'none';
+        }
+
+        function submitEditForm() {
+            document.getElementById('editProductForm').submit();
+        }
+
+        function openDeleteModal(productId) {
+            document.getElementById('confirmDeleteButton').onclick = function() {
+                document.location.href = '?action=delete&productId=' + productId + '&merchantUsername=' + document.getElementById('merchantUsername').value;
+            };
+            document.getElementById('deleteProductModal').style.display = 'flex';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteProductModal').style.display = 'none';
+        }
+
+        function openUpdateImageModal(productId, productName) {
+            document.getElementById('modalUpdateImageProductId').value = productId;
+            document.getElementById('imagePreview').style.display = 'none'; // 隐藏预览
+            document.getElementById('updateImageModal').style.display = 'flex';
+        }
+
+        function closeUpdateImageModal() {
+            document.getElementById('updateImageModal').style.display = 'none';
+        }
+
+        function submitUpdateImageForm() {
+            document.getElementById('updateImageForm').submit();
+        }
+
+        function performSearch() {
+            var searchTerm = document.getElementById('search').value;
+            if (searchTerm.trim() === "") {
+                // 如果搜索框为空，跳转到商品列表页面，不带搜索参数
+                window.location.href = "updateProduct.jsp";
+            } else {
+                // 跳转到当前页面并传递搜索参数
+                window.location.href = "updateProduct.jsp?search=" + encodeURIComponent(searchTerm);
+            }
+        }
+
+
+        function openDeleteModal(productId) {
+            document.getElementById('modalDeleteProductId').value = productId; // 设置商品ID到隐藏输入
+            document.getElementById('deleteProductModal').style.display = 'flex'; // 显示模态框
+        }
+
     </script>
+
 </head>
 <body>
 <h3>现有商品</h3>
+
+<div class="form-inline">
+    <input type="text" id="search" placeholder="搜索商品" />
+    <input type="button" value="搜索" onclick="performSearch()" />
+</div>
+
 <div class="scrollable-table">
     <table>
         <tr>
@@ -164,72 +288,78 @@
         <%
             session = request.getSession();
             String merchantUsername = (String) session.getAttribute("merchantUsername");
+            String searchKeyword = request.getParameter("search") != null ? request.getParameter("search") : "";
+            int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+            //把currentPage存入session
+            session.setAttribute("currentPage", currentPage);
+
             if (merchantUsername == null) {
                 response.sendRedirect("merchantLogin.jsp");
                 return;
-            } else {
-                Connection conn = null;
-                try {
-                    String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
-                    conn = DriverManager.getConnection(jdbcUrl, "root", "1234");
+            }
 
-                    int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
-                    int limit = 5;
-                    int offset = (currentPage - 1) * limit;
+            int limit = 6; // 每页显示6个商品
+            int offset = (currentPage - 1) * limit;
 
-                    String countSql = "SELECT COUNT(*) FROM products WHERE merchant_name = ?";
-                    PreparedStatement countPstmt = conn.prepareStatement(countSql);
-                    countPstmt.setString(1, merchantUsername);
-                    ResultSet countRs = countPstmt.executeQuery();
-                    int totalCount = 0;
-                    if (countRs.next()) {
-                        totalCount = countRs.getInt(1);
-                    }
-                    countRs.close();
-                    countPstmt.close();
+            Connection conn = null;
+            try {
+                String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
+                conn = DriverManager.getConnection(jdbcUrl, "root", "1234");
 
-                    String sql = "SELECT * FROM products WHERE merchant_name = ? LIMIT ? OFFSET ?";
-                    PreparedStatement pstmt = conn.prepareStatement(sql);
-                    pstmt.setString(1, merchantUsername);
-                    pstmt.setInt(2, limit);
-                    pstmt.setInt(3, offset);
-                    ResultSet rs = pstmt.executeQuery();
+                // 查询总记录数，包括搜索条件
+                String countSql = "SELECT COUNT(*) FROM products WHERE merchant_name = ? AND name LIKE ?";
+                PreparedStatement countPstmt = conn.prepareStatement(countSql);
+                countPstmt.setString(1, merchantUsername);
+                countPstmt.setString(2, "%" + searchKeyword + "%");
+                ResultSet countRs = countPstmt.executeQuery();
+                int totalCount = 0;
+                if (countRs.next()) {
+                    totalCount = countRs.getInt(1);
+                }
+                countRs.close();
+                countPstmt.close();
 
-                    while (rs.next()) {
-                        String name = rs.getString("name");
-                        double price = rs.getDouble("price");
-                        String type = rs.getString("type");
-                        String image = rs.getString("image");
-                        String description = rs.getString("description"); // 获取简介
-        %>
-        <tr>
-            <td><%= rs.getInt("id") %></td>
-            <td>
-                <% if (image != null && !image.isEmpty()) { %>
-                    <img src="<%= request.getContextPath() + "/upload/img/" + image %>" alt="<%= name %>图片" style="max-width: 200px; height: auto;">
-                <% } else { %>
-                    <img src="<%= request.getContextPath() + "/upload/img/no-image.png" %>" alt="无图片" style="max-width: 200px; height: auto;">
-                <% } %>
-            </td>
-            <td><%= name %></td>
-            <td><%= price %></td>
-            <td><%= type %></td>
-            <td>
-                <button onclick="openModal('<%= rs.getInt("id") %>', '<%= name %>', '<%= price %>', '<%= type %>', '<%= image %>', '<%= description %>')">修改</button>
-                <form action="merchantDashboard" method="post" enctype="multipart/form-data" style="display:inline;">
-                    <input type="hidden" name="action" value="delete">
-                    <input type="hidden" name="productId" value="<%= rs.getInt("id") %>">
-                    <input type="submit" value="删除">
-                </form>
-            </td>
-        </tr>
-        <%
-                    }
-                    rs.close();
-                    pstmt.close();
+                // 查询当前页商品，包括搜索条件
+                String sql = "SELECT * FROM products WHERE merchant_name = ? AND name LIKE ? LIMIT ? OFFSET ?";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, merchantUsername);
+                pstmt.setString(2, "%" + searchKeyword + "%");
+                pstmt.setInt(3, limit);
+                pstmt.setInt(4, offset);
+                ResultSet rs = pstmt.executeQuery();
 
-                    int totalPages = (int) Math.ceil((double) totalCount / limit);
-        %>
+                while (rs.next()) {
+                    String name = rs.getString("name");
+                    double price = rs.getDouble("price");
+                    String type = rs.getString("type");
+                    String image = rs.getString("image");
+            %>
+            <tr>
+                <td><%=rs.getInt("id")%></td>
+                <td>
+                    <% if (image != null && !image.isEmpty()) { %>
+                    <img src="<%=request.getContextPath() + "/upload/img/" + image%>" alt="<%=name%>图片" style="max-width: 150px; height: auto;">
+                    <% } else { %>
+                    <img src="<%=request.getContextPath() + "/upload/img/no-image.png"%>" alt="无图片" style="max-width: 150px; height: auto;">
+                    <% } %>
+                </td>
+                <td><%=name%></td>
+                <td><%=price%></td>
+                <td><%=type%></td>
+                <td>
+                    <input type="button" value="删除" onclick="openDeleteModal(<%=rs.getInt("id")%>)">
+                    <input type="button" value="修改" onclick="openEditModal(<%=rs.getInt("id")%>, '<%=name%>', <%=price%>, '<%=type%>')">
+                    <input type="button" value="修改图片" onclick="openUpdateImageModal(<%=rs.getInt("id")%>, '<%=name%>')">
+                </td>
+            </tr>
+            <%
+                }
+                rs.close();
+                pstmt.close();
+
+                // 计算总页数
+                int totalPages = (int) Math.ceil((double) totalCount / limit);
+            %>
     </table>
 </div>
 
@@ -237,41 +367,40 @@
     <%
         if (currentPage > 1) {
     %>
-        <a href="?page=<%= currentPage - 1 %>">上一页</a>
+    <a href="updateProduct.jsp?page=<%=currentPage - 1%>&merchantUsername=<%=merchantUsername%>&search=<%=searchKeyword%>">上一页</a>
     <%
         }
         if (currentPage < totalPages) {
     %>
-        <a href="?page=<%= currentPage + 1 %>">下一页</a>
+    <a href="updateProduct.jsp?page=<%=currentPage + 1%>&merchantUsername=<%=merchantUsername%>&search=<%=searchKeyword%>">下一页</a>
     <%
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        if (conn != null) {
-            try {
-                conn.close();
             } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            throw new RuntimeException(e);
         }
-    }}
     %>
+    <h4>当前页: <%=currentPage%></h4>  <!-- 显示当前页数 -->
 </div>
 
-<!-- 模态框 -->
-<div id="modal" class="modal">
+<!-- 修改商品模态框 -->
+<div id="editProductModal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <form action="merchantDashboard" method="post" enctype="multipart/form-data">
+        <div class="modal-header">
+            <h4>修改商品信息</h4>
+        </div>
+        <form id="editProductForm" action="merchantDashboard" method="post" enctype="multipart/form-data">
             <input type="hidden" name="action" value="update">
-            <input type="hidden" id="modalProductId" name="productId">
+            <input type="hidden" name="productId" id="modalProductId" value="">
+
             <label for="modalProductName">新名称:</label>
-            <input type="text" id="modalProductName" name="productName" required>
+            <input type="text" name="productName" id="modalProductName" required>
+
             <label for="modalProductPrice">新价格:</label>
-            <input type="text" id="modalProductPrice" name="productPrice" required>
+            <input type="text" name="productPrice" id="modalProductPrice" required>
+
             <label for="modalProductType">新类型:</label>
-            <select id="modalProductType" name="productType" required>
+            <select name="productType" id="modalProductType" required>
+                <!-- 商品类型选项 -->
                 <option value="">选择商品类型</option>
                 <optgroup label="电子产品">
                     <option value="手机与通讯">手机与通讯</option>
@@ -356,16 +485,61 @@
                     <option value="其他">其他</option>
                 </optgroup>
             </select>
-            <label for="modalProductDescription">简介:</label>
-            <input type="text" id="modalProductDescription" name="productDescription" required>
-            <label for="modalProductImage">新图片 (可选):</label>
-            <input type="file" name="productImage" accept="image/*" onchange="previewImage(this)">
-            <img id="modalImagePreview" class="preview" style="display:block; max-width: 200px; margin-top: 10px;" alt="预览图片">
-            <input type="submit" value="更新">
+
+            <!-- 添加商品描述 -->
+            <label for="modalProductDescription">新描述:</label>
+            <textarea name="productDescription" id="modalProductDescription" rows="4" required></textarea>
+
+            <div class="modal-footer">
+                <input type="button" value="提交" onclick="submitEditForm()">
+                <input type="button" value="取消" onclick="closeEditModal()">
+            </div>
         </form>
     </div>
 </div>
 
-<h2><a href="addProduct.jsp" class="button">添加新商品</a> | <a href="merchantDashboard.jsp" class="button">返回商品列表</a></h2>
+
+<!-- 删除商品的模态框 -->
+<div id="deleteProductModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>确认删除商品</h4>
+        </div>
+        <p>您确定要删除这件商品吗？</p>
+        <div class="modal-footer">
+            <form action="merchantDashboard" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="action" value="delete"> <!-- 删除操作标识 -->
+                <input type="hidden" name="productId" id="modalDeleteProductId" value=""> <!-- 商品ID，待填充 -->
+                <input type="submit" value="确认删除" style="padding: 12px 20px; height: 40px; margin-right: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; transition: background 0.3s;">
+            </form>
+            <input type="button" value="取消" onclick="closeDeleteModal()" style="padding: 12px 20px; height: 40px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; transition: background 0.3s;">
+        </div>
+    </div>
+</div>
+
+
+<!-- 修改商品图片的模态框 -->
+<div id="updateImageModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>修改商品图片</h4>
+        </div>
+        <form id="updateImageForm" action="merchantDashboard" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="updateImage">
+            <input type="hidden" name="productId" id="modalUpdateImageProductId" value="">
+            <label for="productImage">新图片:</label>
+            <input type="file" name="productImage" accept="image/*" required onchange="previewImage(this)">
+            <img id="imagePreview" class="preview" style="display:none; max-width: 200px; height: auto;" alt="预览图片" />
+            <div class="modal-footer">
+                <input type="button" value="提交" onclick="submitUpdateImageForm()">
+                <input type="button" value="取消" onclick="closeUpdateImageModal()">
+            </div>
+        </form>
+    </div>
+</div>
+<h4>
+    <a href="addProduct.jsp" class="button">添加新商品</a>
+    <a href="merchantDashboard.jsp" class="button">返回商品列表</a>
+</h4>
 </body>
 </html>

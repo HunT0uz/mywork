@@ -78,7 +78,7 @@
             long currentTimeMillis = System.currentTimeMillis() + 8 * 60 * 60 * 1000; // 加8小时的毫秒数
             Timestamp createdAt = new Timestamp(currentTimeMillis);
 
-            String insertOrderSql = "INSERT INTO orders (order_number, username, product_id, quantity, unit_price, product_name, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String insertOrderSql = "INSERT INTO orders (order_number, username, product_id, quantity, unit_price, product_name, created_at, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = null;
 
             try {
@@ -107,6 +107,7 @@
                                 preparedStatement.setDouble(5, unitPrice); // 单价
                                 preparedStatement.setString(6, item); // 商品名称
                                 preparedStatement.setTimestamp(7, createdAt); // 创建时间
+                                preparedStatement.setString(8, "待发货"); // 设置状态为"等待商家发货"
 
                                 preparedStatement.addBatch(); // 将当前插入操作加入批量处理
                             } else {
@@ -126,7 +127,7 @@
                 connection.commit(); // 提交事务
                 session.removeAttribute("cart"); // 清空购物车
                 out.println("<script>alert('订单创建成功！总金额: ￥" + totalAmount + "');</script>");
-                out.println("<script>window.location.href='orderManagement.jsp';</script>"); // 跳转到订单管理页面
+                out.println("<script>window.location.href='orderManagement';</script>"); // 跳转到订单管理页面
             } catch (SQLException e) {
                 try {
                     if (connection != null) {
@@ -162,8 +163,25 @@
 <head>
     <meta charset="UTF-8">
     <title>结算页面</title>
+    <style>
+        body {
+            background-image: url("<%= request.getContextPath() + "/upload/img/cart_bg.jpg" %>");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain; /* 保持图片完整显示 */
+            background-attachment: fixed; /* 固定背景 */
+            min-height: 100vh; /* 确保容器最小高度为视口高度 */
+            min-width: 100vw; /* 确保容器最小宽度为视口宽度 */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* 内容靠左对齐 */
+            justify-content: flex-start; /* 内容顶部对齐 */
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
+
 <h1>订单确认</h1>
 <%
     if (cart.isEmpty()) {

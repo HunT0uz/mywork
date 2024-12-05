@@ -90,6 +90,9 @@
 <form action="Merchantregister.jsp" method="get" style="margin-top: 280px;">
     <input type="submit" value="商家注册" class="register-button">
 </form>
-
+<!-- 返回按钮 -->
+<form action="login.jsp" method="get" style="margin-top: 350px;">
+    <input type="submit" value="返回登录" class="merchant-login-button">
+</form>
 </body>
 </html>

@@ -105,6 +105,20 @@
     <meta charset="UTF-8">
     <title>购物车</title>
     <style>
+        body {
+            background-image: url("<%= request.getContextPath() + "/upload/img/cart_bg.jpg" %>");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain; /* 保持图片完整显示 */
+            background-attachment: fixed; /* 固定背景 */
+            min-height: 100vh; /* 确保容器最小高度为视口高度 */
+            min-width: 100vw; /* 确保容器最小宽度为视口宽度 */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* 内容靠左对齐 */
+            justify-content: flex-start; /* 内容顶部对齐 */
+            overflow: hidden;
+        }
         .button {
             padding: 10px 15px;
             background-color: green;
@@ -118,6 +132,7 @@
         }
     </style>
 </head>
+
 <body>
 <h1>购物车</h1>
 

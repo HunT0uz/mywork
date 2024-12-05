@@ -112,9 +112,10 @@ public class MerchantOrderManagementServlet extends HttpServlet {
                 String orderNumber = resultSet.getString("order_number");
                 String createdAt = resultSet.getString("created_at");
                 String productImage = resultSet.getString("product_image");
+                String status = resultSet.getString("status");
 
                 // 将订单信息添加到列表中
-                orders.add(new Order(orderId, username, productId, quantity, unitPrice, productName, orderNumber, createdAt, productImage));
+                orders.add(new Order(orderId, username, productId, quantity, unitPrice, productName, orderNumber, createdAt, productImage,status));
             }
 
             System.out.println("获取到的订单数量: " + orders.size()); // 调试输出
@@ -140,8 +141,9 @@ public class MerchantOrderManagementServlet extends HttpServlet {
         private String orderNumber;
         private String createdAt;
         private String productImage; // 用于存储产品图片 URL
+        private String status;
 
-        public Order(String orderId, String username, String productId, int quantity, double unitPrice, String productName, String orderNumber, String createdAt, String productImage) {
+        public Order(String orderId, String username, String productId, int quantity, double unitPrice, String productName, String orderNumber, String createdAt, String productImage, String status) {
             this.orderId = orderId;
             this.username = username;
             this.productId = productId;
@@ -151,6 +153,7 @@ public class MerchantOrderManagementServlet extends HttpServlet {
             this.orderNumber = orderNumber;
             this.createdAt = createdAt;
             this.productImage = productImage; // 初始化产品图片
+            this.status = status; // 初始化订单状态
         }
 
         // 省略 getter 方法
@@ -189,5 +192,7 @@ public class MerchantOrderManagementServlet extends HttpServlet {
         public String getProductImage() {
             return productImage; // 获取产品图片
         }
+
+        public String getStatus() { return status ;}
     }
 }

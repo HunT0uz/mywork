@@ -23,74 +23,44 @@ public class MerchantDashboardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        try {
-            switch (action) {
-                case "updateImage":
-                    updateImage(request, response); // 更新商品图片
-                    break;
-                case "delete":
-                    deleteProduct(request, response); // 删除商品
-                    break;
-                case "update":
-                    updateProduct(request, response); // 更新商品信息
-                    break;
-                case "updateDescription":
-                    updateDescription(request, response); // 更新商品简介
-                    break;
-                default:
-                    throw new ServletException("未知的操作: " + action);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("error", "操作失败: " + e.getMessage());
+        if ("updateImage".equals(action)) {
+            updateImage(request, response);
+        } else if ("delete".equals(action)) {
+            deleteProduct(request, response);
+        } else if ("update".equals(action)) {
+            updateProduct(request, response);
         }
 
-        request.getRequestDispatcher("updateProduct.jsp").forward(request, response); // 重定向或转发到更新页面
+        // 在所有操作后重定向回updateProduct.jsp，同时保持请求参数
+        String searchParam = request.getParameter("search") != null ? "&search=" + request.getParameter("search") : "";
+        String pageParam = request.getParameter("page") != null ? "&page=" + request.getParameter("page") : "";
+        response.sendRedirect("updateProduct.jsp?merchantUsername=" + request.getParameter("merchantUsername") + searchParam + pageParam);
     }
 
-    private void updateDescription(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        try (Connection conn = getConnection()) {
-            int productId = Integer.parseInt(request.getParameter("productId"));
-            String newDescription = request.getParameter("productDescription"); // 获取新简介
-
-            String sql = "UPDATE products SET description = ? WHERE id = ?";
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, newDescription);
-                pstmt.setInt(2, productId);
-                pstmt.executeUpdate();
-            }
-
-            request.setAttribute("message", "商品简介更新成功");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void updateImage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void updateImage(HttpServletRequest request, HttpServletResponse response) {
         if (ServletFileUpload.isMultipartContent(request)) {
-            try (Connection conn = getConnection()) {
-                int productId = Integer.parseInt(request.getParameter("productId"));
-                String currentImage = getCurrentImage(conn, productId);
-
+            try {
+                Connection conn = getConnection();
                 for (Part part : request.getParts()) {
-                    if ("productImage".equals(part.getName()) && part.getSize() > 0) {
+                    if ("productImage".equals(part.getName())) {
                         String fileName = part.getSubmittedFileName();
-                        File uploads = new File("upload/img");
-                        if (!uploads.exists()) uploads.mkdirs();
-                        part.write(new File(uploads, fileName).getAbsolutePath());
+                        if (fileName != null && !fileName.isEmpty()) {
+                            File uploads = new File("upload/img");
+                            if (!uploads.exists()) uploads.mkdirs();
+                            part.write(uploads.getAbsolutePath() + File.separator + fileName);
 
-                        String sql = "UPDATE products SET image = ? WHERE id = ?";
-                        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                            int productId = Integer.parseInt(request.getParameter("productId"));
+                            String sql = "UPDATE products SET image = ? WHERE id = ?";
+                            PreparedStatement pstmt = conn.prepareStatement(sql);
                             pstmt.setString(1, fileName);
                             pstmt.setInt(2, productId);
                             pstmt.executeUpdate();
+                            pstmt.close();
                         }
-                        request.setAttribute("message", "图片上传成功");
-                    } else {
-                        // 如果没有选择新图片，保留当前图片
-                        request.setAttribute("message", "没有选择新图片，保留当前图片。");
                     }
                 }
+                conn.close();
+                request.setAttribute("message", "图片上传成功");
             } catch (Exception e) {
                 e.printStackTrace();
                 request.setAttribute("error", "文件上传失败: " + e.getMessage());
@@ -100,70 +70,49 @@ public class MerchantDashboardServlet extends HttpServlet {
         }
     }
 
-    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        try (Connection conn = getConnection()) {
+    private void deleteProduct(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Connection conn = getConnection();
             int productId = Integer.parseInt(request.getParameter("productId"));
             String sql = "DELETE FROM products WHERE id = ?";
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setInt(1, productId);
-                pstmt.executeUpdate();
-            }
-
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, productId);
+            pstmt.executeUpdate();
+            pstmt.close();
+            conn.close();
             request.setAttribute("message", "商品删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "删除商品失败: " + e.getMessage());
         }
     }
 
-    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    Connection conn = getConnection();
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response) {
     try {
+        Connection conn = getConnection();
         int productId = Integer.parseInt(request.getParameter("productId"));
         String newName = request.getParameter("productName");
         double newPrice = Double.parseDouble(request.getParameter("productPrice"));
         String newType = request.getParameter("productType");
-        String newDescription = request.getParameter("productDescription");
-
-        // 检查接收到的参数
-        if (newName == null || newPrice <= 0 || newType == null) {
-            request.setAttribute("error", "商品信息不完整，请检查名称、价格和类型");
-            return;
-        }
+        String newDescription = request.getParameter("productDescription"); // 获取描述
 
         String sql = "UPDATE products SET name = ?, price = ?, type = ?, description = ? WHERE id = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, newName);
-            pstmt.setDouble(2, newPrice);
-            pstmt.setString(3, newType);
-            pstmt.setString(4, newDescription);
-            pstmt.setInt(5, productId);
-
-            int rowsAffected = pstmt.executeUpdate();
-            if (rowsAffected > 0) {
-                request.setAttribute("message", "商品更新成功");
-            } else {
-                request.setAttribute("error", "更新商品失败，未找到商品");
-            }
-        }
-    } catch (SQLException e) {
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, newName);
+        pstmt.setDouble(2, newPrice);
+        pstmt.setString(3, newType);
+        pstmt.setString(4, newDescription); // 设置描述
+        pstmt.setInt(5, productId);
+        pstmt.executeUpdate();
+        pstmt.close();
+        conn.close();
+        request.setAttribute("message", "商品更新成功");
+    } catch (Exception e) {
         e.printStackTrace();
         request.setAttribute("error", "更新商品失败: " + e.getMessage());
-    } finally {
-        conn.close();
     }
 }
 
-
-    private String getCurrentImage(Connection conn, int productId) throws SQLException {
-        String sql = "SELECT image FROM products WHERE id = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, productId);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("image");
-                }
-            }
-        }
-        return null;
-    }
 
     private Connection getConnection() throws Exception {
         String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
@@ -172,17 +121,21 @@ public class MerchantDashboardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try (Connection conn = getConnection()) {
+        try {
+            Connection conn = getConnection();
             String sql = "SELECT * FROM products";
-            try (PreparedStatement pstmt = conn.prepareStatement(sql);
-                 ResultSet rs = pstmt.executeQuery()) {
-                request.setAttribute("productList", rs); // 将查询结果存放到请求属性中
-                request.getRequestDispatcher("products.jsp").forward(request, response); // 转发到显示页面
-            }
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+
+            request.setAttribute("productList", rs); // 将查询结果存放到请求属性中
+            request.getRequestDispatcher("updateProduct.jsp").forward(request, response); // 转发到显示页面
+            rs.close();
+            pstmt.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
             request.setAttribute("error", "获取商品列表失败: " + e.getMessage());
-            request.getRequestDispatcher("products.jsp").forward(request, response);
+            request.getRequestDispatcher("updateProduct.jsp").forward(request, response);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

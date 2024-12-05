@@ -66,9 +66,10 @@ public class OrderManagementServlet extends HttpServlet {
                 String productName = resultSet.getString("product_name");
                 String orderNumber = resultSet.getString("order_number");
                 String createdAt = resultSet.getString("created_at");
+                String status = resultSet.getString("status");
 
                 // 将订单信息添加到列表中
-                orders.add(new Order(orderId, username, productId, quantity, unitPrice, productName, orderNumber, createdAt));
+                orders.add(new Order(orderId, username, productId, quantity, unitPrice, productName, orderNumber, createdAt, status));
             }
 
             System.out.println("获取到的订单数量: " + orders.size()); // 调试输出
@@ -93,8 +94,9 @@ public class OrderManagementServlet extends HttpServlet {
         private String productName;
         private String orderNumber;
         private String createdAt;
+        private String status;
 
-        public Order(String orderId, String username, String productId, int quantity, double unitPrice, String productName, String orderNumber, String createdAt) {
+        public Order(String orderId, String username, String productId, int quantity, double unitPrice, String productName, String orderNumber, String createdAt, String status) {
             this.orderId = orderId;
             this.username = username;
             this.productId = productId;
@@ -103,6 +105,7 @@ public class OrderManagementServlet extends HttpServlet {
             this.productName = productName;
             this.orderNumber = orderNumber;
             this.createdAt = createdAt;
+            this.status = status;
         }
 
         // 省略 getter 方法
@@ -142,16 +145,20 @@ public class OrderManagementServlet extends HttpServlet {
             this.quantity = quantity;
         }
 
-       public String getProductImage() {
-    String imageUrl = null; // 初始化为 null
+        public String getStatus() {
+            return status ;
+        }
 
-    // 连接数据库，查询产品图片
-    String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
-    String username = "root";
-    String password = "1234";
+        public String getProductImage() {
+            String imageUrl = null; // 初始化为 null
 
-    // 使用 productId 来查找对应的商品图片
-    String sql = "SELECT image FROM products WHERE id = ?"; // 替换为真实的表名和字段
+            // 连接数据库，查询产品图片
+            String jdbcUrl = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC";
+            String username = "root";
+            String password = "1234";
+
+            // 使用 productId 来查找对应的商品图片
+            String sql = "SELECT image FROM products WHERE id = ?"; // 替换为真实的表名和字段
             try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
                  PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, productId);
@@ -163,8 +170,8 @@ public class OrderManagementServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace(); // 打印异常信息
             }
-    return imageUrl; // 返回图片 URL
-}
+            return imageUrl; // 返回图片 URL
+        }
 
 
     }

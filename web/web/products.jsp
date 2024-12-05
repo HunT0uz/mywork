@@ -7,26 +7,27 @@
     String username = (String) session.getAttribute("username");
 
     // 连接数据库获取商品列表
-    List<String> productList = new ArrayList<>();
-    Map<String, Double> products = new HashMap<>();
-    Map<String, String> productImages = new HashMap<>(); // 用于存储商品图片
-    Map<String, String> productTypes = new HashMap<>(); // 用于存储商品类型
+    List<Integer> displayedProductIds = new ArrayList<>(); // 用于存储展示的商品ID
+    Map<Integer, Double> products = new HashMap<>();
+    Map<Integer, String> productImages = new HashMap<>();
+    Map<Integer, String> productTypes = new HashMap<>();
+    Map<Integer, String> productIds = new HashMap<>();
 
-    String jdbcUrl = "jdbc:mysql://localhost:3306/test"; // 数据库 URL
-    String rootname = "root"; // 数据库用户
-    String rootpassword = "1234"; // 数据库密码
+    String jdbcUrl = "jdbc:mysql://localhost:3306/test";
+    String rootname = "root";
+    String rootpassword = "1234";
 
     Connection connection = null;
 
     // 获取搜索关键字和商家名称
-    String searchKeyword = request.getParameter("search"); // 从请求中获取搜索关键词
-    String searchType = request.getParameter("type"); // 从请求中获取商品类型
-    String merchantName = request.getParameter("merchant"); // 从请求中获取商家名称
-    String searchMode = request.getParameter("searchMode"); // 获取搜索模式
+    String searchKeyword = request.getParameter("search");
+    String searchType = request.getParameter("type");
+    String merchantName = request.getParameter("merchant");
+    String searchMode = request.getParameter("searchMode");
 
     // 数据分页相关参数
-    int pageSize = 15; // 每页显示的商品数量
-    int pageIndex = 1; // 当前页码
+    int pageSize = 100; // 设置为一个较大的页面大小，以展示更多商品
+    int pageIndex = 1;
     String pageIndexParam = request.getParameter("pageIndex");
     if (pageIndexParam != null) {
         try {
@@ -44,14 +45,15 @@
         // 建立连接
         connection = DriverManager.getConnection(jdbcUrl, rootname, rootpassword);
 
-        // 查询所有商品或根据搜索关键词查询商品
-        StringBuilder sql = new StringBuilder("SELECT name, type, price, image FROM products WHERE 1=1");
+        // 查询商品
+        StringBuilder sql = new StringBuilder("SELECT id, name, type, price, image FROM products WHERE 1=1");
 
         // 动态添加查询条件
         if ("productName".equals(searchMode) && searchKeyword != null && !searchKeyword.isEmpty()) {
             sql.append(" AND name LIKE ?");
-        } else if ("merchantName".equals(searchMode) && merchantName != null && !merchantName.isEmpty()) {
-            sql.append(" AND merchant_name LIKE ?"); // 确保表中有 merchantName 字段
+        }
+        if ("merchantName".equals(searchMode) && merchantName != null && !merchantName.isEmpty()) {
+            sql.append(" AND merchant_name LIKE ?"); // 确保表中有 merchant_name 字段
         }
 
         // 添加商品类型的查询条件
@@ -65,42 +67,49 @@
         PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
 
         int paramIndex = 1;
+
+        // 设置参数
         if ("productName".equals(searchMode) && searchKeyword != null && !searchKeyword.isEmpty()) {
-            preparedStatement.setString(paramIndex++, "%" + searchKeyword + "%"); // 设置商品名称模糊匹配
-        } else if ("merchantName".equals(searchMode) && merchantName != null && !merchantName.isEmpty()) {
-            preparedStatement.setString(paramIndex++, "%" + merchantName + "%"); // 设置商家名称模糊匹配
+            preparedStatement.setString(paramIndex++, "%" + searchKeyword + "%");
+        }
+        if ("merchantName".equals(searchMode) && merchantName != null && !merchantName.isEmpty()) {
+            preparedStatement.setString(paramIndex++, "%" + merchantName + "%");
         }
 
         if (searchType != null && !searchType.isEmpty()) {
-            preparedStatement.setString(paramIndex++, searchType); // 设置商品类型精确匹配
+            preparedStatement.setString(paramIndex++, searchType);
         }
 
         preparedStatement.setInt(paramIndex++, pageSize); // 设置每页数量
         preparedStatement.setInt(paramIndex++, (pageIndex - 1) * pageSize); // 设置偏移量
 
-
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
+            int productId = resultSet.getInt("id"); // 获取商品ID
             String productName = resultSet.getString("name");
             double productPrice = resultSet.getDouble("price");
-            String productImage = resultSet.getString("image"); // 获取图片文件名
-            String productType = resultSet.getString("type"); // 获取商品类型
-            productList.add(productName);
-            products.put(productName, productPrice);
-            productImages.put(productName, productImage); // 存储每个商品的图片
-            productTypes.put(productName, productType); // 存储每个商品的类型
+            String productImage = resultSet.getString("image");
+            String productType = resultSet.getString("type");
+
+            products.put(productId, productPrice);
+            productImages.put(productId, productImage);
+            productTypes.put(productId, productType);
+            productIds.put(productId, productName);
+            displayedProductIds.add(productId);
         }
 
         // 获取总商品数量以计算总页数
-        String countSql = "SELECT COUNT(*) FROM products WHERE 1=1";
+        String countSql = "SELECT COUNT(DISTINCT id) FROM products WHERE 1=1";
         PreparedStatement countStatement = connection.prepareStatement(countSql);
 
-        // 添加之前的查询条件
         int countParamIndex = 1;
+
+        // 为计数语句设置相关参数
         if ("productName".equals(searchMode) && searchKeyword != null && !searchKeyword.isEmpty()) {
             countStatement.setString(countParamIndex++, "%" + searchKeyword + "%");
-        } else if ("merchantName".equals(searchMode) && merchantName != null && !merchantName.isEmpty()) {
+        }
+        if ("merchantName".equals(searchMode) && merchantName != null && !merchantName.isEmpty()) {
             countStatement.setString(countParamIndex++, "%" + merchantName + "%");
         }
 
@@ -129,7 +138,6 @@
         }
     }
 
-    // 检查是否添加商品的提示
     String added = request.getParameter("added");
 %>
 
@@ -433,57 +441,59 @@
     </div>
 
     <!-- 右上角下拉菜单 -->
-<div style="float: left; position: relative; margin: 10px;">
-    <div class="dropdown">
-        <button class="dropbtn">个人中心</button>
-        <div class="dropdown-content">
-            <% if (merchantUsername == null && username == null) { %>
+    <div style="float: left; position: relative; margin: 10px;">
+        <div class="dropdown">
+            <button class="dropbtn">个人中心</button>
+            <div class="dropdown-content">
+                <% if (merchantUsername == null && username == null) { %>
                 <a href="login.jsp">登录</a> <!-- 添加登录按钮 -->
-            <% } else { %>
+                <% } else { %>
                 <% if (merchantUsername == null) { %> <!-- 只有普通用户才能看到购物车和订单 -->
-                    <a href="cart.jsp">查看购物车</a>
-                    <a href="orderManagement">查看订单</a>
+                <a href="cart.jsp">查看购物车</a>
+                <a href="orderManagement">查看订单</a>
                 <% } %>
                 <a href="userCenter.jsp">个人中心</a>
                 <a href="logout.jsp">退出登录</a>
                 <% if ("adminis".equals(merchantUsername)) { %>
-                    <a href="addProduct.jsp">添加/删除商品</a>
+                <a href="addProduct.jsp">添加/删除商品</a>
                 <% } %>
                 <% if (merchantUsername != null) { %>
-                    <a href="merchantDashboard.jsp">返回商家中心</a>
+                <a href="merchantDashboard.jsp">返回商家中心</a>
                 <% } %>
-            <% } %>
+                <% } %>
+            </div>
         </div>
     </div>
-</div>
-
 
     <div id="products">
         <h2>商品列表</h2>
         <%
-            for (String product : productList) {
-                double price = products.get(product);
-                String image = productImages.get(product); // 获取对应的图片文件名
-                String type = productTypes.get(product); // 获取商品类型
+            for (Integer productId : displayedProductIds) { // 使用展示的商品ID列表
+                String productName = productIds.get(productId); // 获取商品名称
+                double price = products.get(productId); // 获取商品价格
+                String image = productImages.get(productId); // 获取对应的图片文件名
+                String type = productTypes.get(productId); // 获取商品类型
         %>
         <div class="product">
-            <% if (image != null && !image.isEmpty()) { %>
-            <img src="<%=request.getContextPath() + "/upload/img/" + image%>" alt="<%=product%>图片">
-            <% } else { %>
-            <img src="<%=request.getContextPath() + "/upload/img/no-image.png"%>" alt="无图片"> <!-- 默认无图片 -->
-            <% } %>
-            <p><strong><%=product%></strong></p> <!-- 显示商品名称 -->
-            <p>类型: <%=type%></p> <!-- 显示商品类型 -->
-            <p>价格: ￥<%=price%></p> <!-- 显示商品价格 -->
-            <a href="productDetail.jsp?product=<%=product%>" class="button">查看详情</a>
+            <a href="productDetail.jsp?product=<%=productName%>&id=<%=productId%>" style="text-decoration: none; color: inherit;"> <!-- 包裹整个商品区域 -->
+                <% if (image != null && !image.isEmpty()) { %>
+                    <img src="<%=request.getContextPath() + "/upload/img/" + image%>" alt="<%=productName%>图片">
+                <% } else { %>
+                    <img src="<%=request.getContextPath() + "/upload/img/no-image.png"%>" alt="无图片"> <!-- 默认无图片 -->
+                <% } %>
+                <p><strong><%=productName%></strong></p>
+                <!-- 显示商品名称 -->
+                <p>类型: <%=type%></p> <!-- 显示商品类型 -->
+                <p>价格: ￥<%=price%></p> <!-- 显示商品价格 -->
+            </a>
             <% if (merchantUsername == null) { %>
-            <a href="addToCart.jsp?product=<%=product%>" class="add-to-cart-button">添加到购物车</a>
+                <a href="addToCart.jsp?product=<%=productName%>" class="add-to-cart-button">添加到购物车</a>
             <% } else { %>
-            <span class="add-to-cart-button disabled">无法添加到购物车</span>
+                <span class="add-to-cart-button disabled">无法添加到购物车</span>
             <% } %>
         </div>
         <%
-            }
+            } // 结束 for 循环
         %>
     </div>
 
