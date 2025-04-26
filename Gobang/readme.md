@@ -1,0 +1,3 @@
+source_code里面存放的是该工程的源码（如头文件，cpp文件等）
+而build文件夹内存放的是经过qt软件release后，打包后的文件。
+在release_work里面的release文件夹中可找到具体的可执行文件（Bigwork.exe)
