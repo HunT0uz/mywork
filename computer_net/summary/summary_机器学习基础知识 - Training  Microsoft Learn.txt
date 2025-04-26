@@ -1,0 +1,7 @@
+标题: 机器学习基础知识 - Training | Microsoft Learn
+链接: http://www.baidu.com/link?url=HmN5Auv-yDrzgE3P6OX2lh3lCKuz5gEpG-bMt_jHi_Ij__w11arvxKQIvYkr_HvAV6VWonRgdoM0_X5gJjj_X88knSRrc_P_iQeKciG2PkcSlYsfN2DbaHlmZFIlCtO3RP1JA9GdN9fXobAaqFQLTa
+总结: 我们使用可选的Cookie，通过社交媒体连接等方式改善你在我们网站上的体验，并且根据你的在线活动投放个性化的广告。如果你拒绝可选Cookie，则我们将仅使用为你提供服务所必须的Cookie。你可以单击页面底部的“管理Cookie”更改你的选择。隐私声明第三方Cookie接受拒绝管理Cookie
+关键词: 机器学习，基础知识，Training，Cookie
+AI技术: Cookie,  社交媒体连接,  个性化广告,  在线活动,  隐私声明
+行业: 社交媒体,  广告,  隐私声明
+重大事件摘要: 这篇文章是关于机器学习基础知识中的训练部分，由Microsoft Learn提供。文章主要介绍了如何使用可选的Cookie来改善用户体验和投放个性化广告。如果用户拒绝可选Cookie，网站将仅使用提供服务所必须的Cookie。用户可以在页面底部管理Cookie设置。

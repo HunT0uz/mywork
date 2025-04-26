@@ -1,0 +1,26 @@
+标题: 训练scikit-learn 机器学习模型 (v2) - Azure Machine Lea...
+链接: http://www.baidu.com/link?url=RYnAqg-FkjeuUPgeHf57qfv7nVldqZWcmkBKz1MwN8GLjRoYfhfoMHIrfxUSZRifJ7PJeRH-wXliKnx4uLvTgKsYwbcK-O0DnmtWqrEZ-4IXayGOn6t8wQTl-Y_AJpbv
+总结: #Getahandletotheworkspaceml_client=MLClient(credential=credential,subscription_id="&lt;SUBSCRIPTION_ID&gt;",resource_group_name="&lt;RESOURCE_GROUP&gt;",workspace_name="&lt;AML_WORKSPACE_NAME&gt;",)运行此脚本会得到一个工作区句柄，你使用它来管理其他资源和作业。备注创建MLClient不会将客户端连接到工作区。客户端初始化是惰性操作，将等待其所需的首次调用。在本文中，这将发生在计算创建期间。创建计算资源Azure机器学习需要计算资源才能运行作业。此资源可以是具有Linux或WindowsOS的单节点或多节点计算机，也可以是Spark等特定计算结构。在以下示例脚本中，我们预配了Linuxcomputecluster。可以查看AzureMachineLearningpricing页面，了解VM大小和价格的完整列表。对于此示例，我们只需要一个基本群集；因此，我们选取一个具有2个vCPU内核和7GBRAM的Standard_DS3_v2模型来创建Azure机器学习计算。Python复制
+关键词: Azure Machine Learning,  MLClient,  subscription_id,  resource_group_name
+AI技术: 机器学习,  深度学习,  监督学习,  非监督学习,  强化学习
+行业: 医疗、金融、零售
+重大事件摘要: 这篇文章主要介绍了如何在Azure机器学习服务中训练Scikit-learn机器学习模型。以下是文章中的重大事件总结：
+
+1. **获取工作区句柄**：
+   - 使用`MLClient`类来获取Azure机器学习工作区的句柄。这一步是管理其他资源和作业的基础。
+   ```python
+   ml_client = MLClient(credential=credential, subscription_id="<SUBSCRIPTION_ID>", resource_group_name="<RESOURCE_GROUP>", workspace_name="<AML_WORKSPACE_NAME>")
+   ```
+
+2. **创建计算资源**：
+   - Azure机器学习需要计算资源来运行作业。这些资源可以是单节点或多节点的Linux或Windows计算机，也可以是特定的计算结构如Spark。
+   - 在示例脚本中，我们预配了一个Linux计算集群。
+
+3. **选择并配置虚拟机大小**：
+   - 为了创建Azure机器学习计算资源，我们需要选择一个虚拟机（VM）的大小。对于此示例，我们选择了具有2个vCPU内核和7GB RAM的Standard_DS3_v2模型。
+   - 可以查看Azure Machine Learning定价页面，了解不同VM大小和价格的完整列表。
+
+4. **创建计算目标**：
+   - 使用上述选定的VM大小创建一个计算目标，以便在Azure机器学习服务中运行训练作业。
+
+通过这些步骤，文章展示了如何在Azure机器学习平台上设置和管理计算资源，以便训练Scikit-learn机器学习模型。

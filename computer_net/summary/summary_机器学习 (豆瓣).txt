@@ -1,0 +1,13 @@
+标题: 机器学习 (豆瓣)
+链接: http://www.baidu.com/link?url=6lY4ws_nzjfym1SBKNUZuBFbrnDob64kygIAeyG_zeZcdnSnmCpmnc8JTuxc9CSMyMVDTcVuEjBBjFx6K0j16K
+总结: 1($\lim_{b\to\rm{end}}\hat{V}(\rm{Successor}(b))=V_{\rm{train}}(b)$)Indeed,considerthecasewhen($\rm{Successor}(b)=b_{\rm{end}}$).2And,if($E=0$)(recall($E$)isnon-negative),then($$V_{\rm{train}}=\hat{V}=\hat{V}\circ\rm{Successor}\implies\hat{V}=\rm{Const}$$)Whilenoticetheboundaryvaluesof($\hat{V}$),weget($$\lim_{E\to0^+}\hat{V}=V$$)whichiswha...2017-01-2612:36:51
+关键词: 机器学习, 豆瓣, $\lim_{b\to\rm{end}}\hat{V}(\rm{Successor}(b))=V_{\rm{train}}(b), E=0$
+AI技术: 机器学习，豆瓣，Successor, V_train, E
+行业: 由于提供的内容是关于机器学习的，且关键词“人工智能”已被除去，因此无法从中提取其他行业。
+重大事件摘要: 这篇文章似乎在讨论机器学习中的一个理论问题，特别是与价值函数（value function）$\hat{V}$和其训练值$V_{\text{train}}$之间的关系。文章提到，当后继状态（Successor state）是终止状态（end state）$b_{\text{end}}$时，$\lim_{b\to\text{end}}\hat{V}(\text{Successor}(b))=V_{\text{train}}(b)$。这意味着在边界情况下，预测的价值函数趋近于训练集中对应的价值。
+
+此外，文章还提到了一个条件，即如果$E=0$（其中$E$被定义为非负数），则$\hat{V}=\text{Const}$。这表明在某些条件下，预测的价值函数是一个常数。
+
+最后，文章指出，当$E$趋近于0时，$\lim_{E\to0^+}\hat{V}=V$，这意味着随着$E$的减小，预测的价值函数将趋近于某个常数值$V$。
+
+总结来说，这篇文章探讨了在特定条件下，预测的价值函数如何趋近于训练集中的价值，并且在某些极限情况下，这个函数可能成为一个常数。这些讨论对于理解机器学习模型中价值函数的行为和特性具有重要意义。

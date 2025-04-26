@@ -1,0 +1,21 @@
+标题: 深度学习知识点全面总结-CSDN博客
+链接: http://www.baidu.com/link?url=aV2N8yobBXAmHN6iPIF61CImjHoyrP2PBi89qBFUg-N0oJVfSRBgpjmqMFyITUI6G4krJUuttZL4L7OFLoNnfEzBzjOUpAuy8BmT1T3kr6e
+总结: RNN的基本原理传统神经网络的结构比较简单：输入层–隐藏层–输出层。如下图所示：​RNN跟传统神经网络最大的区别在于每次都会将前一次的输出结果，带到下一次的隐藏层中，一起训练。如下图所示：​RNN学习资料参考：大话循环神经网络（RNN）十、LSTM长短期记忆神经网络1LSTM的产生原因&nbsp;&nbsp;RNN在处理长期依赖（时间序列上距离较远的节点）时会遇到巨大的困难，因为计算距离较远的节点之间的联系时会涉及雅可比矩阵的多次相乘，会造成梯度消失或者梯度膨胀的现象。其中最成功应用最广泛的就是门限RNN（GatedRNN），而LSTM就是门限RNN中最著名的一种。有漏单元通过设计连接间的权重系数，从而允许RNN累积距离较远节点间的长期联系；而门限RNN则泛化了这样的思想，允许在不同时刻改变该系数，且允许网络忘记当前已经累积的信息。2RNN和LSTM的区别所有RNN都具有一种重复神经网络模块的链式的形式。在标准的RNN中，这个重复的模块只有一个非常简单的结构，例如一个tanh层，如下图所示：&nbsp;LSTM同样是这样的结构，但是重复的模块拥有一个不同的结构。不同于单一神经网络层，这里是有四个，以一种非常特殊的方式进行交互。&nbsp;注：上图图标具体含义如下所示：&nbsp;上图中，每一条黑线传输着一整个向量，从一个节点的输出到其他节点的输入。粉色的圈代表pointwise的操作，诸如向量的和，而黄色的矩阵就是学习到的神经网络层。合在一起的线表示向量的连接，分开的线表示内容被复制，然后分发到不同的位置。3LSTM核心LSTM有通称作为“门”的结构来去除或者增加信息到细胞状态的能力。门是一种让信息选择式通过的方法。他们包含一个sigmoid神经网络层和一个pointwise乘法操作。示意图如下：LSTM拥有三个门，分别是遗忘门，输入层门和输出层门，来保护和控制细胞状态。忘记层门作用对象：细胞状态。作用：将细胞状态中的信息选择性的遗忘。操作步骤：该门会读取ht−1​​和xt​​，输出一个在0到1之间的数值给每个在细胞状态Ct−1​​中的数字。1表示“完全保留”，0表示“完全舍弃”。示意图如下：&nbsp;输入层门作用对象：细胞状态作用：将新的信息选择性的记录到细胞状态中。操作步骤：步骤一，sigmoid层称“输入门层”决定什么值我们将要更新。步骤二，tanh层创建一个新的候选值向量C~t​​加入到状态中。其示意图如下：&nbsp;步骤三：将ct−1​​更新为ct​​。将旧状态与ft​​相乘，丢弃掉我们确定需要丢弃的信息。接着加上it​∗C~t​​得到新的候选值，根据我们决定更新每个状态的程度进行变化。其示意图如下：&nbsp;输出层门作用对象：隐层ht​​作用：确定输出什么值。操作步骤：步骤一：通过sigmoid层来确定细胞状态的哪个部分将输出。步骤二：把细胞状态通过tanh进行处理，并将它和sigmoid门的输出相乘，最终我们仅仅会输出我们确定输出的那部分。其示意图如下所示：LSTM和GRU学习参考我的这篇文章：https://blog.csdn.net/qq_36816848/article/details/121616301面试总结：算法岗面试相关0.算法岗工作总结https://zhuanlan.zhihu.com/p/959221611.人工智能实战面试学习路线图&nbsp;https://github.com/tangyudi/Ai-Learn2.百面机器学习之模型评估https://zhuanlan.zhihu.com/p/786036453.面向机器学习的特征工程https://github.com/HadXu/feature-engineering-for-ml-zh4.深度学习500问&nbsp;https://github.com/scutan90/DeepLearning-500-questions5.深度学习无限问&nbsp;https://github.com/yoyoyo-yo/DeepLearningMugenKnock6.计算机视觉知识点总结https://zhuanlan.zhihu.com/p/587765427.深度学习CV领域最瞩目的成果&nbsp;https://zhuanlan.zhihu.com/p/3156057468.算法工程师技术路线图&nbsp;https://zhuanlan.zhihu.com/p/192633890?utm_source=wechatTimeline_article_bottom&amp;from=timeline反向面试：https://github.com/yifeikong/reverse-interview-zh技术面试最后反问面试官的话相关资料推荐：0.算法岗工作总结https://zhuanlan.zhihu.com/p/959221611.人工智能实战面试学习路线图&nbsp;https://github.com/tangyudi/Ai-Learn2.百面机器学习之模型评估https://zhuanlan.zhihu.com/p/786036453.面向机器学习的特征工程https://github.com/HadXu/feature-engineering-for-ml-zh4.深度学习500问&nbsp;https://github.com/scutan90/DeepLearning-500-questions5.深度学习无限问&nbsp;https://github.com/yoyoyo-yo/DeepLearningMugenKnock6.计算机视觉知识点总结https://zhuanlan.zhihu.com/p/587765427.深度学习CV领域最瞩目的成果&nbsp;https://zhuanlan.zhihu.com/p/3156057468.算法工程师技术路线图&nbsp;https://zhuanlan.zhihu.com/p/192633890?utm_source=wechatTimeline_article_bottom&amp;from=timeline&nbsp;本文参考资料：​​​​​吴恩达老师深度学习课程笔记卷积神经网络—动手学深度学习2.0.0不积跬步，无以至千里！-CSDN博客五万字总结,深度学习基础。_AI浩-CSDN博客深度学习入门笔记-我是管小亮CSDN博客以上未完待更新，仅供个人学习,侵权联系删除！文章知识点与官方知识档案匹配，可进一步学习相关知识OpenCV技能树OpenCV中的深度学习图像分类29612人正在系统学习中
+关键词: RNN,  LSTM,  门限RNN,  深度学习
+AI技术: 循环神经网络（RNN）, 长短期记忆网络（LSTM）, 门限循环神经网络（Gated RNN）, 深度学习500问, 计算机视觉知识点总结
+行业: 计算机视觉, 深度学习, 机器学习
+重大事件摘要: 这篇文章是一篇关于深度学习和循环神经网络（RNN）的全面总结，主要涉及以下几个重大事件：
+
+1. **RNN的基本原理**：文章首先介绍了传统神经网络的基本结构，即输入层、隐藏层和输出层。然后，它解释了RNN与传统神经网络的主要区别，即RNN会将前一次的输出结果带到下一次的隐藏层中一起训练，从而能够处理序列数据。
+
+2. **LSTM的产生原因**：文章指出了RNN在处理长期依赖时遇到的困难，如梯度消失或梯度爆炸现象。为了解决这个问题，引入了长短期记忆网络（LSTM），它是一种特殊类型的RNN，能够更好地捕捉长期依赖关系。
+
+3. **RNN与LSTM的区别**：文章详细比较了RNN和LSTM的结构差异。虽然它们都采用链式重复模块的形式，但LSTM的模块更为复杂，包含四个特殊的门结构（遗忘门、输入门、输出门和候选值计算单元），这些门结构允许网络有选择性地记住或忘记信息，从而更有效地处理长期依赖问题。
+
+4. **LSTM的核心**：文章深入解析了LSTM的内部工作机制，特别是其三个关键门的作用：遗忘门用于决定保留哪些信息，输入门用于决定更新哪些新信息，输出门用于决定最终输出哪些信息。通过这些门的控制，LSTM能够灵活地管理细胞状态的信息流动。
+
+5. **学习资源推荐**：文章还提供了多个学习资源链接，包括算法岗工作总结、人工智能实战面试学习路线图、机器学习模型评估、特征工程、深度学习问答集、计算机视觉知识点总结以及算法工程师技术路线图等，为读者进一步学习和准备相关领域的面试提供了丰富的资料。
+
+6. **版权声明**：最后，文章声明了其内容仅供个人学习使用，如有侵权请联系删除，并提醒读者文章内容与官方知识档案匹配，鼓励读者深入学习相关知识。
+
+综上所述，这篇文章不仅系统地介绍了RNN和LSTM的基础知识，还提供了实用的学习资源，对于想要深入了解深度学习领域的人来说是一个宝贵的指南。

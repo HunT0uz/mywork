@@ -1,0 +1,7 @@
+标题: 40单元史上最强核显!AMD锐龙AI MAX 300系列渲染图出炉
+链接: https://baijiahao.baidu.com/s?id=1814693335063449999&wfr=spider&for=pc
+总结: 快科技11月3日消息，Strix Halo，也就是锐龙AI MAX 300系列，可以说是近期最受关注和期待的产品了，因为它将集成史无前例的强大GPU，有说法称能媲美移动版RTX 4070。MLID放出了一张锐龙AI MAX PRO 300系列的渲染图(非PRO标准版也一样就是这名字真长啊)，可以明显看到采用了chiplet分离式设计。这也是AMD第一次原生针对移动端设计的chiplet芯片——HX系列是桌面版的简单移植。它包含三颗芯片，其中两颗较小的是CCD，集成CPU核心与缓存，最多16个Zen5、16MB二级缓存、32MB三级缓存。较大的则是IOD，集成GPU、NPU、IO，最多40个RDNA3.5 CU单元，还有32MB无限缓存。NPU部分和Strix Point锐龙AI 300系列一样是AIE2+第二代架构，算力提高到60 TOPS。锐龙AI MAX 300系列将在CES 2025上正式发布，已知有三款型号：锐龙AI MAX+ 395：16核心CPU、40核心GPU锐龙AI MAX 390：12核心CPU、40核心GPU锐龙AIMAX 385：8核心CPU、32核心GPU举报/反馈
+关键词: 锐龙AI MAX 300系列, chiplet分离式设计, RDNA3.5 CU单元, CES 2025
+AI技术: GPU,  NPU,  CU单元,  AIE2+第二代架构,  TOPS
+行业: 半导体,  移动设备,  图形处理器
+重大事件摘要: 这篇文章报道了AMD即将推出的锐龙AI MAX 300系列处理器，这是一系列面向移动端设计的高性能芯片。这些芯片采用了chiplet分离式设计，包括三颗芯片：两颗较小的CCD集成CPU核心与缓存，以及一颗较大的IOD集成GPU、NPU和IO。其中，GPU部分据称能媲美移动版RTX 4070。此外，NPU部分采用了AIE2+第二代架构，算力提高到60 TOPS。锐龙AI MAX 300系列预计将在CES 2025上正式发布，已知有三款型号：锐龙AI MAX+ 395、锐龙AI MAX 390和锐龙AI MAX 385。

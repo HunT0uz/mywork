@@ -1,0 +1,25 @@
+标题: 机器学习
+链接: http://www.baidu.com/link?url=roZGOBd6H9zy3ekm-WN7fv0__aAnIApXEC99ZJEAWfSjSf4XRS9l2Rvn1gSPSyaGCMtcRinpX6ynUiHgcvP1u_
+总结: 一、课程简介《机器学习》是计算机科学与人工智能的重要分支领域。本课程面向硕士研究生，系统性地教授机器学习（ML）的发展背景、主要理论、技术及其最新发展趋势，并开展课堂研讨充分调动学生学习主动性，使学生深入了解该领域的研究对未来社会发展的重要影响,掌握机器学习的最新理论、方法的基本原理和初步应用，激发人工智能领域创新创业的兴趣。《机器学习》作为该领域的入门课程，在内容上尽可能涵盖机器学习基础知识的各方面。全课程共9章，大致分为3个部分：第1部分（第1～3章）介绍机器学习的基础知识；第2部分（第3～7章）讨论一些经典而常用的机器学习方法（决策树、神经网络、支持向量机、无监督学习）；第3部分（第8～9章）为进阶知识，内容涉及深度学习和强化学习。"MachineLearning"isanimportantbranchofcomputerscienceandartificialintelligence.Asanintroductorycourseinthisfield,"MachineLearning"coversallaspectsofthebasicsofmachinelearningasmuchaspossibleincontent.Thewholecourseconsistsof9chapters,roughlydividedinto3parts:Part1(Chapters1to3)introducesthebasicknowledgeofmachinelearning;Part2(Chapters3to7)discussessomeclassicandcommonlyusedmachinelearningmethods(decisiontrees,neuralnetworks,supportvectormachines,unsupervisedlearning);Part3(Chapters8-9)isadvancedknowledge,andthecontentinvolvesdeeplearningandreinforcementlearning.二、教学目标与特色机器学习源于计算机科学，研究计算机怎样模拟或实现人类的学习能力和行为，以获取新的知识或技能、重新组织已有的知识结构使之不断改善自身的性能。本课程将从机器学习的原理和应用两方面进行讲解、实践和研讨。通过本课程教学，使学生了机器学习的主要经典及前沿方法体系，掌握基础知识和基本原理，具备根据实际问题选择相应的机器学习方法并建立机器学习模型的工程应用能力。主要特色：（1）跟踪前沿方法和经典应用，推荐开创性经典文献；（2）关注学科思维培养、数学之美与螺旋进步的创新逻辑；（3）实践出真知，引入业界先进技术平台开展挑战性实践。主要实践作业：作业1：MindSpore（CPU）手写数字识别作业2：调研图像分割迁移或语义分割开源项目，并采用CPU或GPU实现推理应用，给出运行过程和结果。作业3：ModelArts花卉识别项目1：用昇腾910训练训练LeNetforMindSprore模型项目2：Atlas200DK手写数字识别，采用项目1得到的模型课堂实践：体验远程推理集群平台项目3：创新推理应用设计，推荐采用远程推理模型三、特色资源[1]远程推理集群实验平台（已投入软硬件总价值约9.5万元）[2]基于华为昇腾Atlas200DK的深度学习应用实践工具，http://gitee.com/haojiash/airemote/[3]华为昇思经典深度学习模型仓库，http://gitee.com/ascend/modelzoo/四、学生反馈
+关键词: 机器学习, 计算机科学, 深度学习, 强化学习
+AI技术: 机器学习, 深度学习, 强化学习, 决策树, 神经网络
+行业: 计算机科学,  人工智能,  深度学习
+重大事件摘要: 这篇文章是关于一门名为《机器学习》的课程的简介。以下是文章中的重大事件总结：
+
+1. **课程内容与结构**：
+   - 该课程面向硕士研究生，系统性地教授机器学习的发展背景、主要理论、技术及其最新发展趋势。
+   - 课程分为三个部分：基础知识（第1～3章）、经典机器学习方法（第3～7章）、进阶知识（第8～9章，包括深度学习和强化学习）。
+
+2. **教学目标与特色**：
+   - 目标是使学生了解机器学习的主要经典及前沿方法体系，掌握基础知识和基本原理，具备根据实际问题选择相应的机器学习方法并建立机器学习模型的工程应用能力。
+   - 特色包括跟踪前沿方法和经典应用、关注学科思维培养和数学之美、实践出真知，引入业界先进技术平台开展挑战性实践。
+
+3. **实践作业与项目**：
+   - 学生需要完成三项主要实践作业，包括MindSpore手写数字识别、图像分割迁移或语义分割开源项目的调研与实现、ModelArts花卉识别项目等。
+   - 还有课堂实践项目，如体验远程推理集群平台、创新推理应用设计等。
+
+4. **特色资源**：
+   - 提供了远程推理集群实验平台、基于华为昇腾Atlas200DK的深度学习应用实践工具、华为昇思经典深度学习模型仓库等特色资源供学生学习和实践使用。
+
+5. **学生反馈**：
+   - 文章最后提到了学生反馈，但具体内容未在文章中给出。这部分可能包含学生对课程的评价、建议或改进意见等。

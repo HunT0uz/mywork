@@ -1,0 +1,7 @@
+标题: 什么是人工智能 (AI)?| IBM
+链接: http://www.baidu.com/link?url=bUC6zDNhugta7sQRczUnbPH_j5Baep0wEB-iD9LBsKnCK_NQPuC0leoF_Psbfmg8J71vLdf5El-24X3ZSwMsgtFg_5mg7rccT7IM5qVzjoG
+总结: IBMwebdomainsibm.com,ibm.org,ibm-zcouncil.com,insights-on-business.com,jazz.net,mobilebusinessinsights.com,promontory.com,proveit.com,ptech.org,s81c.com,securityintelligence.com,skillsbuild.org,softlayer.com,storagecommunity.org,think-exchange.com,thoughtsoncloud.com,alphaevents.webcasts.com,ibm-cloud.github.io,ibmbigdatahub.com,bluemix.net,mybluemix.net,ibm.net,ibmcloud.com,galasa.dev,blueworkslive.com,swiss-quantum.ch,blueworkslive.com,cloudant.com,ibm.ie,ibm.fr,ibm.com.br,ibm.co,ibm.ca,community.watsonanalytics.com,datapower.com,skills.yourlearning.ibm.com,bluewolf.com,carbondesignsystem.com关于本网站的Cookie我们的网站要求提供某些cookies以正常运作。并且，经您同意，其他cookies可以被用于分析网站使用情况，改善用户体验以及用于推广。出于这些目的，IBM可以将通过cookies收集的个人信息分享给其位于全球的子公司和第三方。如您希望获得更多信息，请浏览您cookies设置选项和IBM的隐私声明。为了提供顺畅的浏览体验，将在此处所列的IBMWeb域中共享您的cookie偏好。全部接受仅必需
+关键词: 人工智能,  IBM,  Cookies
+AI技术: IBM,  AI,  人工智能
+行业: 信息技术, 数据科学, 云计算
+重大事件摘要: 这篇文章是关于IBM的人工智能(AI)技术的介绍。文章首先介绍了IBM在AI领域的一些主要产品和服务，包括Watson、Bluemix和Cloudant等。然后，文章讨论了IBM如何利用这些技术来帮助企业实现数字化转型，提高效率和创新能力。此外，文章还提到了IBM的一些合作伙伴关系，以及它们如何共同推动AI技术的发展和应用。最后，文章强调了IBM对隐私和数据安全的承诺，并提醒用户在使用IBM的产品和服务时要注意保护个人信息。

@@ -1,0 +1,13 @@
+标题: 机器学习入门(1)之基本概念简介_instance在机器学习里-CSD...
+链接: http://www.baidu.com/link?url=roZGOBd6H9zy3ekm-WN7fw60QQGbMbKLh7Rh6St1wTUqvo56DzwNVLA2TMZGZbszPP67AI5-f6JcSpzRoEx1i4KbYKOvjWmcAZdDbLIUxgi
+总结: 《人工智能之机器学习入门到实战》是一本专为初学者设计的教材，旨在引领读者从基础知识出发，逐步深入到实际应用领域，全面了解并掌握机器学习的核心概念和技术。这本书覆盖了从理论到实践的广泛话题，是理解人工...机器学习课程——实战篇(一)应用建议与解决思路(一)10-312.1从机器学习问题角度分类2.2从算法的功能角度分类2.2.1回归算法(RegressionAlgorithms)2.2.2基于实例的算法(Instance-basedAlgorithms)2.2.3决策树类算法(DecisionTreeAlgorithms)2.2.4贝叶斯类算法(BayesianAlgorithms)2.2.5聚类算法(ClusteringAlgorithms)...机器学习之K近邻法(KNN)_k近邻随机生成两个样本怎么算11-4instance1:第一个样本,array型instance2:第二个样本,array型"""dist=np.sqrt(np.sum((instance1-instance2)**2))returndistdefknn_classify(x,y,testInstance,k):"""给定一个测试数据testInstance,通过KNN算法来预测它的标签。
+关键词: 机器学习,  算法,  K近邻法,  预测
+AI技术: 机器学习,  K近邻法,  回归算法,  决策树类算法,  聚类算法
+行业: 教育，科技，数据分析
+重大事件摘要: 这篇文章主要介绍了机器学习的基本概念和技术，特别是针对初学者。文章从理论到实践，涵盖了广泛的应用领域，使读者能够全面了解并掌握机器学习的核心内容。
+
+文章首先从机器学习问题的角度进行了分类，包括回归算法、基于实例的算法、决策树类算法、贝叶斯类算法和聚类算法等。这些分类有助于读者理解不同类型的机器学习问题及其解决方法。
+
+接着，文章详细介绍了K近邻法（KNN），这是一种基于实例的算法。文章解释了如何计算两个样本之间的欧氏距离，并提供了一个函数`knn_classify`，用于通过KNN算法预测测试数据的标签。
+
+总的来说，这篇文章为初学者提供了一个关于机器学习的入门指南，涵盖了从基本概念到实际应用的广泛话题，特别是对K近邻法进行了深入讲解。

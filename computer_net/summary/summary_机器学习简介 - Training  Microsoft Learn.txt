@@ -1,0 +1,7 @@
+标题: 机器学习简介 - Training | Microsoft Learn
+链接: http://www.baidu.com/link?url=QiMiHuJWXFQvTUxBXZcy4iz3vcVi08-J0H0oWW-mQfHYXWt_S0izNkDmOXQD8hjz1I5hSKnFzE4KFOfCreBba-VK1mR-vNwNeg3899xxEkNaLmZlrJBsnPt9RO5hC1bp
+总结: 我们使用可选的Cookie，通过社交媒体连接等方式改善你在我们网站上的体验，并且根据你的在线活动投放个性化的广告。如果你拒绝可选Cookie，则我们将仅使用为你提供服务所必须的Cookie。你可以单击页面底部的“管理Cookie”更改你的选择。隐私声明第三方Cookie接受拒绝管理Cookie
+关键词: 机器学习,  Training,  Microsoft Learn,  Cookie
+AI技术: 机器学习,  社交媒体连接,  个性化广告,  在线活动跟踪,  管理Cookie
+行业: 社交媒体,  广告,  隐私声明
+重大事件摘要: 这篇文章是关于机器学习的简介，主要介绍了如何使用可选Cookie来改善用户体验和投放个性化广告。文章提到，如果用户拒绝可选Cookie，网站将只使用提供服务所必须的Cookie。此外，文章还提供了隐私声明和第三方Cookie的管理选项。

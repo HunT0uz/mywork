@@ -1,0 +1,7 @@
+标题: 深度学习流程介绍&&个人理解(持续更新)-CSDN博客
+链接: http://www.baidu.com/link?url=yGkhzxRua5sxGTfSzFq_kXqgzKzBrUckz4dT0JvP8svENqsVFrhN-33hZtl7c1CDjxaOJdeXxKkVvOrylTi-UM3jkSh_3YFDE2JOf8JoSue
+总结: 目录0.前言1.流程概述1.1数据集收集1.2数据集预处理1.3确定待解决问题并确定合适的模型1.输入层（InputLayer）：2.隐藏层（HiddenLayers）：3.激活函数（ActivationFunctions）：4.池化层（PoolingLayers）：5.权重矩阵和偏置（WeightsandBiases）：6.输出层（OutputLayer）：7.损失函数（LossFunction）：8.优化器（Optimizer）：9.&nbsp;正则化（Regularization）：1.4根据上述流程编写网络模型2.部分神经网络模型介绍2.0神经网络基础知识2.0.1正向/反向传播2.0.2损失函数Loss/Error与梯度2.0.3&nbsp;感知机2.0.4&nbsp;BP神经网络（BackPropagation——反向传播网络）2.1CNN模型2.1.1LeNet5模型&nbsp;2.1.2AlexNet模型（现在没多大意义）2.1.3VGG模型（现在不会去用）2.1.4GoogleNet模型（现在不会去用）2.1.5ResNet模型（力荐）2.2RNN模型（循环神经网络）前言——RNN的特点：2.2.1RNN结构2.2.2&nbsp;LSTM模型（长短期记忆网络）2.2.3&nbsp;GRU模型（门控循环单元网络）3.部分激活函数介绍3.0定义&amp;&amp;作用3.1Sigmoid3.2Softmax3.3Relu3.4LaekyRelu3.5Tanh：4.部分损失函数介绍4.1MSE4.2MAE4.3交叉熵（CrossEntropy）在项目中的注意事项番外：深度学习常见术语维护时间：
+关键词: 深度学习流程, 神经网络模型, 激活函数, 损失函数
+AI技术: 深度学习, 神经网络, 卷积神经网络, 循环神经网络, 损失函数
+行业: 深度学习, 神经网络模型, 损失函数
+重大事件摘要: 这篇文章是关于深度学习流程的介绍和个人理解，内容涵盖了从数据集收集到模型编写的整个流程。文章首先介绍了深度学习的基本概念和流程，包括数据集收集、预处理、确定待解决问题并选择合适的模型等步骤。接着，文章详细介绍了神经网络的各个组成部分，如输入层、隐藏层、激活函数、池化层、权重矩阵和偏置、输出层、损失函数和优化器等。此外，文章还介绍了部分常见的神经网络模型，如CNN模型、RNN模型等，并对它们的结构和特点进行了详细解释。最后，文章还介绍了一些常见的激活函数和损失函数，并给出了在项目中使用这些函数的一些注意事项。总的来说，这篇文章为读者提供了一个全面的深度学习流程介绍和个人理解，对于初学者来说具有很好的参考价值。
