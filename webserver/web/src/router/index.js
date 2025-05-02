@@ -156,13 +156,13 @@ function getRoutes() {
                 },
                 {
                     path: "editCurrentUser",
-                    name: "editCurrentUser",
-                    component: () => import('../views/EditCurrentUser.vue')
+                    name: "admin-editCurrentUser",
+                    component: () => import('../views/admin/EditCurrentUser.vue')
                 },
                 {
                     path: "editPassword",
-                    name: "editPassword",
-                    component: () => import('../views/EditPassword.vue')
+                    name: "admin-editPassword",
+                    component: () => import('../views/admin/EditPassword.vue')
                 },
                 {
                     path: "",
@@ -186,6 +186,16 @@ function getRoutes() {
             path: "/retrievePassword",
             name: "front-retrievePassword",
             component: () => import('../views/RetrievePassword.vue')
+        },
+        {
+            path: "/editCurrentUser",
+             name: "front-editCurrentUser",
+            component: () => import('../views/EditCurrentUser.vue')
+        },
+        {
+            path: "/editPassword",
+            name: "front-editPassword",
+            component: () => import('../views/EditPassword.vue')
         },
         {
             path: "/balanceInfo",
