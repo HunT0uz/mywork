@@ -1,4 +1,4 @@
-# 项目名称：template
+# 项目名称：Brian's Shop
 
 ## 项目简介
 
