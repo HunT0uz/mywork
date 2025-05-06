@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>gamewidget</class>
+ <widget class="QWidget" name="gamewidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>876</width>
+    <height>646</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="layoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>150</y>
+     <width>111</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string> 黑棋 </string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLCDNumber" name="lcd_black"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="lb_black_position">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>10</y>
+     <width>111</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string> 白棋</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLCDNumber" name="lcd_write">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>89</width>
+        <height>0</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="lb_white_position">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>629</x>
+     <y>300</y>
+     <width>241</width>
+     <height>170</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <widget class="QPushButton" name="btn_restart">
+      <property name="styleSheet">
+       <string notr="true">background-image: url(;/E:/DesktopData/data structure/Bigwork/tingyun.ico);</string>
+      </property>
+      <property name="text">
+       <string>重新开始</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btn_return">
+      <property name="text">
+       <string>返回</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btn_prompt">
+      <property name="styleSheet">
+       <string notr="true">background-image: url(;/E:/DesktopData/data structure/Bigwork/tingyun.ico);</string>
+      </property>
+      <property name="text">
+       <string>提示</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btn_regret">
+      <property name="text">
+       <string>悔棋</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btn_reverse">
+      <property name="text">
+       <string>反转</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>480</y>
+     <width>241</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_4">
+    <item>
+     <widget class="QLabel" name="lb_eval">
+      <property name="text">
+       <string>ai局面估分:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>提示位置：</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="lb_timeuse">
+      <property name="text">
+       <string>ai计算耗时:</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
